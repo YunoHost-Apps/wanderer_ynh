@@ -37,22 +37,24 @@ ynh_config_add --template=".env" --destination="$install_dir/.env"
 #=================================================
 ynh_script_progression --message="Building the sources (it will take some time)..."
 
-ynh_hide_warnings ynh_go_install --go_version=$GO_VERSION
+ynh_hide_warnings ynh_go_install
 
 pushd "$install_dir/search"
     /var/www/meilisearch/meilisearch --import-dump migrations/migration.dump
 popd
 
 pushd "$install_dir/db"
-    ynh_use_go
     go mod tidy && go build
 popd
+
+ynh_go_remove
 
 pushd "$install_dir/web"
 	ynh_hide_warnings ynh_exec_as_app npm ci --omit=dev
         ynh_hide_warnings ynh_exec_as_app npm run build
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
 popd
+
 
 #=================================================
 # SYSTEM CONFIGURATION
