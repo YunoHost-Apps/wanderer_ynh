@@ -61,9 +61,13 @@ ynh_script_progression "Adding system configurations related to $app..."
 
 ynh_config_add_nginx
 
-ynh_config_add_systemd
+ynh_config_add_systemd --service="${app}-search" --template="wanderer-search.service"
+ynh_config_add_systemd --service="${app}-db" --template="wanderer-db.service"
+ynh_config_add_systemd --service="${app}-web" --template="wanderer-web.service"
 
-yunohost service add "$app" --description="$app’s main service" --log="/var/log/$app/$app.log"
+yunohost service add "${app}-search" --description="Wanderer search service" --log="/var/log/$app/$app.log"
+yunohost service add "${app}-db" --description="Wanderer PocketBase service" --log="/var/log/$app/$app.log"
+yunohost service add "${app}-web" --description="Wanderer web service" --log="/var/log/$app/$app.log"
 
 ynh_config_add_logrotate
 
