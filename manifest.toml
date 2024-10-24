@@ -55,7 +55,7 @@ ram.runtime = "50M"
 
     [resources.sources.main]
     url = "https://github.com/Flomp/wanderer/archive/refs/tags/v0.9.0.tar.gz"
-    sha256 = "13595f5e8be36dea9bc64ca2b0546075fb4f08a634f96eba627a8eaa7694ebe"
+    sha256 = "13595f5e8be36dea9bc64ca2b0546075fb4f08a634f96eba627a8eaa7694ebe3"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
