@@ -81,3 +81,4 @@ ram.runtime = "50M"
 
     [resources.ports]
     main.default = 3000
+    meili.default = 7700
