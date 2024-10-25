@@ -35,30 +35,38 @@ ynh_config_add --template=".env" --destination="$install_dir/.env"
 #=================================================
 # BUILDING SOURCES AND SETTING UP THE SERVER
 #=================================================
-ynh_script_progression --message="Building the sources (it will take some time)..."
+ynh_script_progression "Installing dependencies..."
 
 ynh_hide_warnings ynh_go_install
 
+# Define a temporary log file
+LOG_FILE="/tmp/meilisearch.log"
+
+ynh_script_progression "Building the search engine..."
 pushd "$install_dir/search"
     export MEILI_MASTER_KEY=$key
     export MEILI_NO_ANALYTICS=true
-    ynh_hide_warnings /var/www/meilisearch/meilisearch --import-dump migrations/migration.dump &
+    ynh_hide_warnings /var/www/meilisearch/meilisearch --import-dump migrations/migration.dump > "$LOG_FILE" 2>&1 &
 
 # Get the PID of the Meilisearch process
 MEILISEARCH_PID=$!
 
-# Wait until the specified line appears in the Meilisearch logs
-( tail -f --pid=$MEILISEARCH_PID /proc/$MEILISEARCH_PID/fd/1 | \
-grep -q "Actix runtime found; starting in Actix runtime" && systemctl restart meilisearch)
+# Monitor the log file until the specific message appears, then kill the process
+( tail -f "$LOG_FILE" | grep -q "Actix runtime found; starting in Actix runtime" && kill $MEILISEARCH_PID ) &
+
+# Wait for Meilisearch to exit
+wait $MEILISEARCH_PID
 
 popd
 
+ynh_script_progression "Building the database (it will take some time)..."
 pushd "$install_dir/db"
     go mod tidy && go build
 popd
 
 ynh_go_remove
 
+ynh_script_progression "Building the web (it will take some time)..."
 pushd "$install_dir/web"
 	ynh_hide_warnings ynh_exec_as_app npm ci --omit=dev
         ynh_hide_warnings ynh_exec_as_app npm run build
