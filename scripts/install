@@ -58,7 +58,9 @@ popd
 
 ynh_script_progression "Building the database (it will take some time)..."
 pushd "$install_dir/db"
-    ynh_hide_warnings go mod tidy && go build
+	export GOPATH="$install_dir/build/go"
+	export GOCACHE="$install_dir/build/.cache"
+	ynh_hide_warnings ynh_exec_as_app CGO_ENABLED=1 go mod tidy && go build
 popd
 
 ynh_go_remove
