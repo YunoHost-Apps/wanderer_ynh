@@ -42,7 +42,18 @@ ynh_hide_warnings ynh_go_install
 pushd "$install_dir/search"
     export MEILI_MASTER_KEY=$key
     export MEILI_NO_ANALYTICS=true
-    ynh_hide_warnings /var/www/meilisearch/meilisearch --import-dump migrations/migration.dump
+    ynh_hide_warnings /var/www/meilisearch/meilisearch --import-dump migrations/migration.dump &
+
+# Get the PID of the Meilisearch process
+MEILISEARCH_PID=$!
+
+# Wait until the specified line appears in the Meilisearch logs
+( tail -f --pid=$MEILISEARCH_PID /proc/$MEILISEARCH_PID/fd/1 | \
+grep -q "Actix runtime found; starting in Actix runtime" && kill $MEILISEARCH_PID ) &
+
+# Wait for Meilisearch to exit
+wait $MEILISEARCH_PID
+
 popd
 
 pushd "$install_dir/db"
