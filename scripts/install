@@ -67,8 +67,7 @@ ynh_go_remove
 
 ynh_script_progression "Building the web (it will take some time)..."
 pushd "$install_dir/web"
-	ynh_hide_warnings ynh_exec_as_app npm install vite
-	ynh_hide_warnings ynh_exec_as_app npm ci --omit=dev
+	ynh_hide_warnings ynh_exec_as_app npm ci
         ynh_hide_warnings ynh_exec_as_app npm run build
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
 popd
