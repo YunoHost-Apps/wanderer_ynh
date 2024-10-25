@@ -49,10 +49,7 @@ MEILISEARCH_PID=$!
 
 # Wait until the specified line appears in the Meilisearch logs
 ( tail -f --pid=$MEILISEARCH_PID /proc/$MEILISEARCH_PID/fd/1 | \
-grep -q "Actix runtime found; starting in Actix runtime" && kill $MEILISEARCH_PID ) &
-
-# Wait for Meilisearch to exit
-wait $MEILISEARCH_PID
+grep -q "Actix runtime found; starting in Actix runtime" && systemctl restart meilisearch)
 
 popd
 
