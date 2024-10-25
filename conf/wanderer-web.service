@@ -1,7 +1,6 @@
 [Unit]
 Description=__APP__’s web service
 After=network.target
-After=meilisearch.service
 After=wanderer-search.service
 After=wanderer-db.service
 

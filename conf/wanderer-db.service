@@ -1,7 +1,6 @@
 [Unit]
 Description=__APP__’s PocketBase Service
 After=network.target
-After=meilisearch.service
 After=wanderer-search.service
 
 [Service]
