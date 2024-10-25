@@ -55,7 +55,7 @@ pushd "$install_dir/search"
 MEILISEARCH_PID=$!
 
 # Monitor the log file until the specific message appears, then kill the process
-( tail -f "$LOG_FILE" | grep -q "Actix runtime found; starting in Actix runtime" && yunohost service restart meilisearch ) &
+( tail -f "/var/log/$app/$app.log" | grep -q "Actix runtime found; starting in Actix runtime" && yunohost service restart meilisearch ) &
 
 popd
 
