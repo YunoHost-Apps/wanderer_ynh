@@ -88,12 +88,16 @@ ynh_config_add_logrotate
 
 # ynh_config_add_fail2ban --logpath="/var/log/nginx/${domain}-error.log" --failregex="Regex to match into the log for a failed login"
 
+
+
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemctl --service="$app" --action="start"
+ynh_systemctl --service="${app}-search" --action="start"
+ynh_systemctl --service="${app}-db" --action="start"
+ynh_systemctl --service="${app}-web" --action="start"
 
 #=================================================
 # END OF SCRIPT
