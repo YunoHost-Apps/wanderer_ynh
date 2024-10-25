@@ -50,13 +50,6 @@ pushd "$install_dir/search"
     export MEILI_MASTER_KEY=$key
     export MEILI_NO_ANALYTICS=true
     /var/www/meilisearch/meilisearch --import-dump migrations/migration.dump > "/var/log/$app/$app.log" 2>&1 &
-
-# Get the PID of the Meilisearch process
-MEILISEARCH_PID=$!
-
-# Monitor the log file until the specific message appears, then kill the process
-( tail -f "/var/log/$app/$app.log" | grep -q "Actix runtime found; starting in Actix runtime" && yunohost service restart meilisearch ) &
-
 popd
 
 ynh_script_progression "Building the database (it will take some time)..."
