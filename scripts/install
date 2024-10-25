@@ -42,6 +42,9 @@ ynh_config_add --template="meili-config.toml" --destination="$install_dir/search
 # Use logrotate to manage application logfile(s)
 ynh_config_add_logrotate
 touch /var/log/$app/$app.log
+touch /var/log/$app/$app-search.log
+touch /var/log/$app/$app-db.log
+
 chown -R $app:$app /var/log/$app/
 
 #=================================================
@@ -87,8 +90,8 @@ ynh_config_add_systemd --service="${app}-search" --template="wanderer-search.ser
 ynh_config_add_systemd --service="${app}-db" --template="wanderer-db.service"
 ynh_config_add_systemd --service="${app}-web" --template="wanderer-web.service"
 
-yunohost service add "${app}-search" --description="Wanderer search service" --log="/var/log/$app/$app.log"
-yunohost service add "${app}-db" --description="Wanderer PocketBase service" --log="/var/log/$app/$app.log"
+yunohost service add "${app}-search" --description="Wanderer search service" --log="/var/log/$app/$app-search.log"
+yunohost service add "${app}-db" --description="Wanderer PocketBase service" --log="/var/log/$app/$app-db.log"
 yunohost service add "${app}-web" --description="Wanderer web service" --log="/var/log/$app/$app.log"
 
 ynh_config_add_logrotate
