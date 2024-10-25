@@ -58,7 +58,7 @@ popd
 
 ynh_script_progression "Building the database (it will take some time)..."
 pushd "$install_dir/db"
-    go mod tidy && go build
+    ynh_hide_warnings go mod tidy && go build
 popd
 
 ynh_go_remove
