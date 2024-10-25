@@ -40,7 +40,9 @@ ynh_script_progression --message="Building the sources (it will take some time).
 ynh_hide_warnings ynh_go_install
 
 pushd "$install_dir/search"
-    /var/www/meilisearch/meilisearch --import-dump migrations/migration.dump
+    export MEILI_MASTER_KEY=$key
+    export MEILI_NO_ANALYTICS=true
+    ynh_hide_warnings /var/www/meilisearch/meilisearch --import-dump migrations/migration.dump
 popd
 
 pushd "$install_dir/db"
