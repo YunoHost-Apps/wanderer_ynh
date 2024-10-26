@@ -22,10 +22,6 @@ no_analytics = true
 # All gathered data is used solely for the purpose of improving Meilisearch, and can be deleted at any time.
 # https://docs.meilisearch.com/learn/configuration/instance_options.html#disable-analytics
 
-http_payload_size_limit = "100 MB"
-# Sets the maximum size of accepted payloads.
-# https://docs.meilisearch.com/learn/configuration/instance_options.html#payload-limit-size
-
 log_level = "INFO"
 # Defines how much detail should be present in Meilisearch's logs.
 # Meilisearch currently supports six log levels, listed in order of increasing verbosity:  `OFF`, `ERROR`, `WARN`, `INFO`, `DEBUG`, `TRACE`
