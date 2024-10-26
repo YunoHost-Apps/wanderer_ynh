@@ -94,8 +94,6 @@ yunohost service add "${app}-search" --description="Wanderer search service" --l
 yunohost service add "${app}-db" --description="Wanderer PocketBase service" --log="/var/log/$app/$app-db.log"
 yunohost service add "${app}-web" --description="Wanderer web service" --log="/var/log/$app/$app.log"
 
-ynh_config_add_logrotate
-
 # ynh_config_add_fail2ban --logpath="/var/log/nginx/${domain}-error.log" --failregex="Regex to match into the log for a failed login"
 
 
