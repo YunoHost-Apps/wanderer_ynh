@@ -12,7 +12,7 @@ env = "production"
 http_addr = "127.0.0.1:__PORT_MEILI__"
 # The address on which the HTTP server will listen.
 
-master_key = "__MEILI_KEY__"
+master_key = "__KEY__"
 # Sets the instance's master key, automatically protecting all routes except GET /health.
 # https://docs.meilisearch.com/learn/configuration/instance_options.html#master-key
 

@@ -30,10 +30,7 @@ chmod +x "$install_dir/search/meilisearch"
 ynh_script_progression "Adding $app's configuration files..."
 
 key=$(ynh_string_random --length=45 | base64)
-meili_key=$(ynh_string_random --length=45 | base64)
-
 ynh_app_setting_set --key=key --value=$key
-ynh_app_setting_set --key=meili_key --value=$meili_key
 
 ynh_config_add --template=".env" --destination="$install_dir/.env"
 ynh_config_add --template="meili-config.toml" --destination="$install_dir/search/config.toml"
@@ -65,7 +62,8 @@ ynh_script_progression "Building the database (it will take some time)..."
 pushd "$install_dir/db"
 	export GOPATH="$install_dir/build/go"
 	export GOCACHE="$install_dir/build/.cache"
-	ynh_hide_warnings ynh_exec_as_app CGO_ENABLED=1 go mod tidy && go build
+	ynh_hide_warnings ynh_exec_as_app CGO_ENABLED=1 go mod tidy 
+	ynh_hide_warnings go build
 popd
 
 ynh_go_remove
@@ -74,7 +72,7 @@ ynh_script_progression "Building the web (it will take some time)..."
 pushd "$install_dir/web"
 	ynh_hide_warnings ynh_exec_as_app npm ci
     ynh_hide_warnings ynh_exec_as_app PUBLIC_VALHALLA_URL=https://valhalla1.openstreetmap.de npm run build
-	# ynh_hide_warnings ynh_exec_as_app npm cache clean --force
+	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
 popd
 
 chown -R $app:$app "$install_dir/"
