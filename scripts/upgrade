@@ -17,6 +17,13 @@ ynh_systemctl --service="${app}-db" --action="stop"
 ynh_systemctl --service="${app}-web" --action="stop"
 
 #=================================================
+# INSTALL DEPENDENCIES
+#=================================================
+ynh_script_progression "Installing dependencies..."
+
+ynh_nodejs_install
+
+#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Upgrading source files..."
