@@ -17,6 +17,13 @@ ynh_systemctl --service="${app}-db" --action="stop"
 ynh_systemctl --service="${app}-web" --action="stop"
 
 #=================================================
+# INSTALL DEPENDENCIES
+#=================================================
+ynh_script_progression "Installing dependencies..."
+
+ynh_nodejs_install
+
+#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Upgrading source files..."
@@ -40,13 +47,6 @@ ynh_config_add --template="meili-config.toml" --destination="$install_dir/search
 ynh_script_progression "Installing dependencies..."
 
 ynh_hide_warnings ynh_go_install
-
-ynh_script_progression "Building the search engine..."
-pushd "$install_dir/search"
-    export MEILI_MASTER_KEY=$key
-    export MEILI_NO_ANALYTICS=true
-    /var/www/meilisearch/meilisearch --import-dump migrations/migration.dump > "/var/log/$app/$app.log" 2>&1 &
-popd
 
 ynh_script_progression "Building the database (it will take some time)..."
 pushd "$install_dir/db"
