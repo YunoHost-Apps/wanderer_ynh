@@ -16,7 +16,14 @@ Ini TIDAK boleh diedit dengan tangan.
 
 ## Ringkasan
 
-This is a dummy description of this app features
+Wanderer is a self-hosted trail database. You can upload your recorded tracks or create new ones and add various metadata to build an easily searchable catalogue.
+
+- Manage your trails
+- Plan new routes
+- Extensive map integration and visualization
+- Share trails with other people and explore theirs
+- Advanced filter and search functionality
+- Create custom lists to organize your trails further
 
 
 **Versi terkirim:** 0.9.0~ynh1
@@ -25,7 +32,7 @@ This is a dummy description of this app features
 
 ## Tangkapan Layar
 
-![Tangkapan Layar pada Wanderer](./doc/screenshots/example.jpg)
+![Tangkapan Layar pada Wanderer](./doc/screenshots/wanderer.png)
 
 ## Dokumentasi dan sumber daya
 
