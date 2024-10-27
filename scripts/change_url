@@ -32,7 +32,9 @@ ynh_config_change_url_nginx
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemctl --service="$app" --action="start"
+ynh_systemctl --service="${app}-search" --action="start"
+ynh_systemctl --service="${app}-db" --action="start"
+ynh_systemctl --service="${app}-web" --action="start"
 
 #=================================================
 # END OF SCRIPT
