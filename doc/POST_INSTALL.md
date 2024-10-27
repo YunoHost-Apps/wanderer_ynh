@@ -1,7 +1,1 @@
-This is a dummy disclaimer to display after the install
-
-The app url is <https://__DOMAIN____PATH__>
-
-The app install dir is `__INSTALL_DIR__`
-
-The app id is `__ID__`
+On the first launch, wanderer will create a rather large city index with over 200,000 entries in meilisearch. This process happens automatically but can take up to 2 minutes to complete. During this time the search functionality might not yet work properly.
