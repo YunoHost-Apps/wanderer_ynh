@@ -13,7 +13,8 @@ source /usr/share/yunohost/helpers
 
 ynh_script_progression --message="Storing installation settings..." --weight=1
 
-if [ "$disable_signup" -eq 0 ] ; then
+if [ "$disable_signup" -eq "0" ]
+then
     disable_signup=true
 else
     disable_signup=false
@@ -69,7 +70,7 @@ ynh_script_progression "Building the search engine..."
 pushd "$install_dir/search"
     export MEILI_MASTER_KEY=$key
     export MEILI_NO_ANALYTICS=true
-    ynh_hide_warnings "$install_dir"/search/meilisearch --import-dump migrations/migration.dump > "/var/log/$app/$app.log" 2>&1 &
+    ynh_hide_warnings "$install_dir"/search/meilisearch --config-file-path="$install_dir/search/config.toml" --import-dump migrations/migration.dump > "/var/log/$app/$app.log" 2>&1 &
 popd
 
 ynh_script_progression "Building the database (it will take some time)..."
