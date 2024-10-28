@@ -60,9 +60,11 @@ pushd "$install_dir/db"
 	export GOCACHE="$install_dir/build/.cache"
 	ynh_hide_warnings ynh_exec_as_app CGO_ENABLED=1 go mod tidy 
 	ynh_hide_warnings go build
-popd
+	popd
 
 ynh_go_remove
+ynh_safe_rm "$install_dir/build"
+ynh_safe_rm "$install_dir/.cache"
 
 ynh_script_progression "Building the web (it will take some time)..."
 pushd "$install_dir/web"
