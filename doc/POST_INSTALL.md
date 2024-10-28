@@ -1,1 +1,0 @@
-On the first launch, wanderer will create a rather large city index with over 200,000 entries in meilisearch. This process happens automatically but can take up to 2 minutes to complete. During this time the search functionality might not yet work properly.
