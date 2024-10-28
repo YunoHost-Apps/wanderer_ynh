@@ -13,8 +13,7 @@ source /usr/share/yunohost/helpers
 
 ynh_script_progression --message="Storing installation settings..." --weight=1
 
-if [ "$disable_signup" -eq 0 ]
-then
+if [ "$disable_signup" -eq 0 ] ; then
     disable_signup=true
 else
     disable_signup=false
