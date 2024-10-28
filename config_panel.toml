@@ -1,0 +1,26 @@
+
+## -----------------------------------------------------------------------------
+## IMPORTANT: In accordance with YunoHost's spirit, please keep things simple and 
+## do not overwhelm the admin with tons of misunderstandable or advanced settings.
+## -----------------------------------------------------------------------------
+
+version = "1.0"
+
+
+[main]
+name.en = "Main configuration"
+name.fr = "Configuration principale"
+services = [ "__APP__-search", "__APP__db", "__APP__-web" ]
+
+     
+    [main.config]
+    name.en = "Configuration options"
+    name.fr = "Options de configuration"
+
+        [main.config.disable_signup]
+        ask.en = "Enable sign up?"
+        ask.fr = "Autoriser les inscriptions ?"
+        type = "boolean"
+        yes = true
+        no = false
+        bind = "SIGNUP:__INSTALL_DIR/.env"

@@ -41,6 +41,13 @@ ram.runtime = "50M"
     type = "group"
     default = "visitors"
 
+    [install.disable_signup]
+    ask.en = "Enable sign up?"
+    ask.fr = "Autoriser les inscriptions ?"
+    type = "boolean"
+    yes = true
+    no = false
+
 [resources]
  
      [resources.sources]

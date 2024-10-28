@@ -8,6 +8,21 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
+## SET STANDARD SETTINGS FROM MANIFEST
+#=================================================
+
+ynh_script_progression --message="Storing installation settings..." --weight=1
+
+if [ "$signup" -eq 0 ]
+then
+    disable_signup=true
+else
+    disable_signup=false
+fi
+
+ynh_app_setting_set --key=disable_signup --value="$disable_signup"
+
+#=================================================
 # INSTALL DEPENDENCIES
 #=================================================
 ynh_script_progression "Installing dependencies..."
