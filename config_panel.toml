@@ -23,4 +23,4 @@ services = [ "__APP__-search", "__APP__db", "__APP__-web" ]
         type = "boolean"
         yes = true
         no = false
-        bind = "SIGNUP:__INSTALL_DIR/.env"
+        bind = "DISABLE_SIGNUP:__INSTALL_DIR/.env"
