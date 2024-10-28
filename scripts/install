@@ -47,7 +47,7 @@ key=$(ynh_string_random --length=45 | base64)
 ynh_app_setting_set --key=key --value=$key
 
 ynh_config_add --template=".env" --destination="$install_dir/.env"
-ynh_config_add --template="meili-config.toml" --destination="$install_dir/search/config.toml"
+ynh_config_add --template="meili-config.toml" --destination="$install_dir/search/config.toml"  > "/var/log/$app/$app.log" 2>&1 &
 
 
 # Use logrotate to manage application logfile(s)
