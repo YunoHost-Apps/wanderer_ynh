@@ -64,7 +64,7 @@ ynh_script_progression "Building the search engine..."
 pushd "$install_dir/search"
     export MEILI_MASTER_KEY=$key
     export MEILI_NO_ANALYTICS=true
-    ynh_hide_warnings "$install_dir"/search/meilisearch --config-file-path="$install_dir/search/config.toml" --import-dump migrations/migration.dump > "/var/log/$app/$app.log" 2>&1 &
+    "$install_dir"/search/meilisearch --config-file-path="$install_dir/search/config.toml" --import-dump migrations/migration.dump > "/var/log/$app/$app.log" 2>&1 &
 popd
 
 ynh_script_progression "Building the database (it will take some time)..."
