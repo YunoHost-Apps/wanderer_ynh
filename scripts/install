@@ -82,6 +82,8 @@ pushd "$install_dir/db"
 popd
 
 ynh_go_remove
+ynh_safe_rm "$install_dir/build"
+ynh_safe_rm "$install_dir/.cache"
 
 ynh_script_progression "Building the web (it will take some time)..."
 pushd "$install_dir/web"
