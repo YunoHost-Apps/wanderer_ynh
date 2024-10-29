@@ -1,7 +1,7 @@
 # This file shows the default configuration of Meilisearch.
 # All variables are defined here: https://docs.meilisearch.com/learn/configuration/instance_options.html#environment-variables
 
-db_path = "$install_dir/db/data.ms"
+db_path = "__INSTALL_DIR__/search/db/data.ms"
 # Designates the location where database files will be created and retrieved.
 # https://docs.meilisearch.com/learn/configuration/instance_options.html#database-path
 
