@@ -10,7 +10,7 @@ Group=__APP__
 EnvironmentFile=__INSTALL_DIR__/.env
 WorkingDirectory=__INSTALL_DIR__/db
 ExecStart=__INSTALL_DIR__/db/pocketbase serve
-StandardOutput=append:/var/log/__APP__/__APP__.log
+StandardOutput=append:/var/log/__APP__/__APP__-db.log
 StandardError=inherit
 
 ### Depending on specificities of your service/app, you may need to tweak these

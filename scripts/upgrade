@@ -8,6 +8,12 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
+# LOAD SETTINGS
+#=================================================
+
+ynh_app_setting_set_default --key=disable_signup --value=false
+
+#=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
 ynh_script_progression "Stopping $app's systemd service..."
@@ -28,7 +34,7 @@ ynh_nodejs_install
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
-ynh_setup_source --dest_dir="$install_dir" --full_replace --source_id="main"
+ynh_setup_source --dest_dir="$install_dir" --full_replace --source_id="main" --keep="db search"
 ynh_setup_source --dest_dir="$install_dir/search" --full_replace --source_id="meili"
 
 chmod +x "$install_dir/search/meilisearch"
@@ -48,15 +54,24 @@ ynh_script_progression "Installing dependencies..."
 
 ynh_hide_warnings ynh_go_install
 
+ynh_script_progression "Building the search engine..."
+pushd "$install_dir/search"
+    export MEILI_MASTER_KEY=$key
+    export MEILI_NO_ANALYTICS=true
+    "$install_dir"/search/meilisearch --config-file-path="$install_dir/search/config.toml" --ignore-dump-if-db-exists --import-dump migrations/migration.dump > "/var/log/$app/$app.log" 2>&1 &
+popd
+
 ynh_script_progression "Building the database (it will take some time)..."
 pushd "$install_dir/db"
 	export GOPATH="$install_dir/build/go"
 	export GOCACHE="$install_dir/build/.cache"
 	ynh_hide_warnings ynh_exec_as_app CGO_ENABLED=1 go mod tidy 
 	ynh_hide_warnings go build
-popd
+	popd
 
 ynh_go_remove
+ynh_safe_rm "$install_dir/build"
+ynh_safe_rm "$install_dir/.cache"
 
 ynh_script_progression "Building the web (it will take some time)..."
 pushd "$install_dir/web"
@@ -64,6 +79,8 @@ pushd "$install_dir/web"
     ynh_hide_warnings ynh_exec_as_app PUBLIC_VALHALLA_URL=https://valhalla1.openstreetmap.de npm run build
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
 popd
+
+pkill meilisearch
 
 chown -R $app:$app "$install_dir/"
 
@@ -81,7 +98,7 @@ ynh_config_add_systemd --service="${app}-web" --template="wanderer-web.service"
 
 yunohost service add "${app}-search" --description="Wanderer search service" --log="/var/log/$app/$app-search.log"
 yunohost service add "${app}-db" --description="Wanderer PocketBase service" --log="/var/log/$app/$app-db.log"
-yunohost service add "${app}-web" --description="Wanderer web service" --log="/var/log/$app/$app.log"
+yunohost service add "${app}-web" --description="Wanderer web service" --log="/var/log/$app/$app-web.log"
 
 ynh_config_add_logrotate
 
@@ -92,7 +109,9 @@ ynh_config_add_logrotate
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemctl --service="$app" --action="start"
+ynh_systemctl --service="${app}-search" --action="start"
+ynh_systemctl --service="${app}-db" --action="start"
+ynh_systemctl --service="${app}-web" --action="start"
 
 #=================================================
 # END OF SCRIPT

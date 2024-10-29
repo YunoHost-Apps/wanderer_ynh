@@ -8,6 +8,15 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
+## SET STANDARD SETTINGS FROM MANIFEST
+#=================================================
+
+ynh_script_progression --message="Storing installation settings..." --weight=1
+
+disable_signup="false"
+ynh_app_setting_set --key=disable_signup --value="$disable_signup"
+
+#=================================================
 # INSTALL DEPENDENCIES
 #=================================================
 ynh_script_progression "Installing dependencies..."
@@ -38,7 +47,7 @@ ynh_config_add --template="meili-config.toml" --destination="$install_dir/search
 
 # Use logrotate to manage application logfile(s)
 ynh_config_add_logrotate
-touch /var/log/$app/$app.log
+touch /var/log/$app/$app-web.log
 touch /var/log/$app/$app-search.log
 touch /var/log/$app/$app-db.log
 
@@ -55,7 +64,7 @@ ynh_script_progression "Building the search engine..."
 pushd "$install_dir/search"
     export MEILI_MASTER_KEY=$key
     export MEILI_NO_ANALYTICS=true
-    ynh_hide_warnings "$install_dir"/search/meilisearch --import-dump migrations/migration.dump  > "/var/log/$app/$app.log" 2>&1 &
+    "$install_dir"/search/meilisearch --config-file-path="$install_dir/search/config.toml" --import-dump migrations/migration.dump > "/var/log/$app/$app.log" 2>&1 &
 popd
 
 ynh_script_progression "Building the database (it will take some time)..."
@@ -67,6 +76,8 @@ pushd "$install_dir/db"
 popd
 
 ynh_go_remove
+ynh_safe_rm "$install_dir/build"
+ynh_safe_rm "$install_dir/.cache"
 
 ynh_script_progression "Building the web (it will take some time)..."
 pushd "$install_dir/web"
@@ -74,6 +85,8 @@ pushd "$install_dir/web"
     ynh_hide_warnings ynh_exec_as_app PUBLIC_VALHALLA_URL=https://valhalla1.openstreetmap.de npm run build
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
 popd
+
+pkill meilisearch
 
 chown -R $app:$app "$install_dir/"
 
@@ -90,7 +103,7 @@ ynh_config_add_systemd --service="${app}-web" --template="wanderer-web.service"
 
 yunohost service add "${app}-search" --description="Wanderer search service" --log="/var/log/$app/$app-search.log"
 yunohost service add "${app}-db" --description="Wanderer PocketBase service" --log="/var/log/$app/$app-db.log"
-yunohost service add "${app}-web" --description="Wanderer web service" --log="/var/log/$app/$app.log"
+yunohost service add "${app}-web" --description="Wanderer web service" --log="/var/log/$app/$app-web.log"
 
 # ynh_config_add_fail2ban --logpath="/var/log/nginx/${domain}-error.log" --failregex="Regex to match into the log for a failed login"
 
