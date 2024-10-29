@@ -24,7 +24,7 @@ fund = "https://buymeacoffee.com/wanderertrails"
 yunohost = ">= 11.2.30"
 helpers_version = "2.1"
 architectures = "all"
-multi_instance = true
+multi_instance = false
 
 ldap = false
 sso = false
@@ -40,6 +40,13 @@ ram.runtime = "50M"
     [install.init_main_permission]
     type = "group"
     default = "visitors"
+
+    [install.disable_signup]
+    ask.en = "Enable sign up?"
+    ask.fr = "Autoriser les inscriptions ?"
+    type = "boolean"
+    yes = true
+    no = false
 
 [resources]
  
@@ -76,3 +83,5 @@ ram.runtime = "50M"
     [resources.ports]
     main.default = 3000
     meili.default = 7700
+    pocketbase.default = 8090
+    pocketbase.fixed = true
