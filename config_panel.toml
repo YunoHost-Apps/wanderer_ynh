@@ -18,8 +18,8 @@ services = [ "__APP__-search", "__APP__db", "__APP__-web" ]
     name.fr = "Options de configuration"
 
         [main.config.disable_signup]
-        ask.en = "Enable sign up?"
-        ask.fr = "Autoriser les inscriptions ?"
+        ask.en = "Disable sign up?"
+        ask.fr = "Fermer les inscriptions ?"
         type = "boolean"
         yes = "true"
         no = "false"
