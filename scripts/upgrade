@@ -80,8 +80,9 @@ pushd "$install_dir/web"
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
 popd
 
-chown -R $app:$app "$install_dir/"
+pkill meilisearch
 
+chown -R $app:$app "$install_dir/"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
