@@ -35,7 +35,7 @@ ynh_nodejs_install
 ynh_script_progression "Upgrading source files..."
 
 ynh_setup_source --dest_dir="$install_dir" --full_replace --source_id="main" --keep="db"
-ynh_setup_source --dest_dir="$install_dir/search" --full_replace --source_id="meili"
+ynh_setup_source --dest_dir="$install_dir/search" --source_id="meili"
 
 chmod +x "$install_dir/search/meilisearch"
 
@@ -58,7 +58,7 @@ ynh_script_progression "Building the search engine..."
 pushd "$install_dir/search"
     export MEILI_MASTER_KEY=$key
     export MEILI_NO_ANALYTICS=true
-    "$install_dir"/search/meilisearch --config-file-path="$install_dir/search/config.toml" --import-dump migrations/migration.dump > "/var/log/$app/$app.log" 2>&1 &
+    "$install_dir"/search/meilisearch --config-file-path="$install_dir/search/config.toml" --ignore-dump-if-db-exists --import-dump migrations/migration.dump > "/var/log/$app/$app.log" 2>&1 &
 popd
 
 ynh_script_progression "Building the database (it will take some time)..."
