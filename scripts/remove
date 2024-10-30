@@ -18,19 +18,19 @@ ynh_config_remove_logrotate
 
 if ynh_hide_warnings yunohost service status "${app}-search" >/dev/null
 then
-	ynh_script_progression --message="Removing "${app}-search" service integration..."
+	ynh_script_progression "Removing "${app}-search" service integration..."
 	yunohost service remove "${app}-search"
 fi
 
 if ynh_hide_warnings yunohost service status "${app}-db" >/dev/null
 then
-	ynh_script_progression --message="Removing "${app}-db" service integration..."
+	ynh_script_progression "Removing "${app}-db" service integration..."
 	yunohost service remove "${app}-db"
 fi
 
 if ynh_hide_warnings yunohost service status "${app}-web" >/dev/null
 then
-	ynh_script_progression --message="Removing "${app}-web" service integration..."
+	ynh_script_progression "Removing "${app}-web" service integration..."
 	yunohost service remove "${app}-web"
 fi
 

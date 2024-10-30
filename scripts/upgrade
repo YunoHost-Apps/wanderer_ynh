@@ -34,8 +34,8 @@ ynh_nodejs_install
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
-ynh_setup_source --dest_dir="$install_dir" --full_replace --source_id="main" --keep="db search"
-ynh_setup_source --dest_dir="$install_dir/search" --full_replace --source_id="meili"
+ynh_setup_source --dest_dir="$install_dir" --full_replace --source_id="main" --keep="db"
+ynh_setup_source --dest_dir="$install_dir/search" --source_id="meili"
 
 chmod +x "$install_dir/search/meilisearch"
 
@@ -80,8 +80,9 @@ pushd "$install_dir/web"
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
 popd
 
-chown -R $app:$app "$install_dir/"
+pkill meilisearch
 
+chown -R $app:$app "$install_dir/"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
