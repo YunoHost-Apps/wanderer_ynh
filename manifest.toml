@@ -45,8 +45,6 @@ ram.runtime = "50M"
     ask.en = "Enable sign up?"
     ask.fr = "Autoriser les inscriptions ?"
     type = "boolean"
-    yes = true
-    no = false
 
 [resources]
  
