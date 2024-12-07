@@ -5,7 +5,9 @@ Ini TIDAK boleh diedit dengan tangan.
 
 # Wanderer untuk YunoHost
 
-[![Tingkat integrasi](https://dash.yunohost.org/integration/wanderer.svg)](https://ci-apps.yunohost.org/ci/apps/wanderer/) ![Status kerja](https://ci-apps.yunohost.org/ci/badges/wanderer.status.svg) ![Status pemeliharaan](https://ci-apps.yunohost.org/ci/badges/wanderer.maintain.svg)
+[![Tingkat integrasi](https://apps.yunohost.org/badge/integration/wanderer)](https://ci-apps.yunohost.org/ci/apps/wanderer/)
+![Status kerja](https://apps.yunohost.org/badge/state/wanderer)
+![Status pemeliharaan](https://apps.yunohost.org/badge/maintained/wanderer)
 
 [![Pasang Wanderer dengan YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=wanderer)
 
@@ -26,7 +28,7 @@ Wanderer is a self-hosted trail database. You can upload your recorded tracks or
 - Create custom lists to organize your trails further
 
 
-**Versi terkirim:** 0.11.0~ynh1
+**Versi terkirim:** 0.12.0~ynh1
 
 **Demo:** <https://demo.wanderer.to/>
 
