@@ -5,7 +5,9 @@ NON debe editarse manualmente.
 
 # Wanderer para YunoHost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/wanderer.svg)](https://ci-apps.yunohost.org/ci/apps/wanderer/) ![Estado de funcionamento](https://ci-apps.yunohost.org/ci/badges/wanderer.status.svg) ![Estado de mantemento](https://ci-apps.yunohost.org/ci/badges/wanderer.maintain.svg)
+[![Nivel de integración](https://apps.yunohost.org/badge/integration/wanderer)](https://ci-apps.yunohost.org/ci/apps/wanderer/)
+![Estado de funcionamento](https://apps.yunohost.org/badge/state/wanderer)
+![Estado de mantemento](https://apps.yunohost.org/badge/maintained/wanderer)
 
 [![Instalar Wanderer con YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=wanderer)
 
@@ -26,7 +28,7 @@ Wanderer is a self-hosted trail database. You can upload your recorded tracks or
 - Create custom lists to organize your trails further
 
 
-**Versión proporcionada:** 0.11.0~ynh1
+**Versión proporcionada:** 0.12.0~ynh1
 
 **Demo:** <https://demo.wanderer.to/>
 

@@ -5,7 +5,9 @@ Il NE doit PAS être modifié à la main.
 
 # Wanderer pour YunoHost
 
-[![Niveau d’intégration](https://dash.yunohost.org/integration/wanderer.svg)](https://ci-apps.yunohost.org/ci/apps/wanderer/) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/wanderer.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/wanderer.maintain.svg)
+[![Niveau d’intégration](https://apps.yunohost.org/badge/integration/wanderer)](https://ci-apps.yunohost.org/ci/apps/wanderer/)
+![Statut du fonctionnement](https://apps.yunohost.org/badge/state/wanderer)
+![Statut de maintenance](https://apps.yunohost.org/badge/maintained/wanderer)
 
 [![Installer Wanderer avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=wanderer)
 
@@ -26,7 +28,7 @@ Wanderer est une base de données de sentiers auto-hébergée. Vous pouvez tél�
 - Créez des listes personnalisées pour mieux organiser vos itinéraires
 
 
-**Version incluse :** 0.11.0~ynh1
+**Version incluse :** 0.12.0~ynh1
 
 **Démo :** <https://demo.wanderer.to/>
 
