@@ -37,6 +37,8 @@ ynh_script_progression "Upgrading source files..."
 ynh_setup_source --dest_dir="$install_dir" --full_replace --source_id="main" --keep="db"
 ynh_setup_source --dest_dir="$install_dir/search" --source_id="meili"
 
+ynh_safe_rm "$install_dir/search/db/data.ms"
+
 chmod +x "$install_dir/search/meilisearch"
 
 #=================================================
