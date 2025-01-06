@@ -4,4 +4,4 @@ test_format = 1.0
 
 [default]
 
-test_upgrade_from.234bb32f0d6b13617bf99c878cd468d350c8debb.name = "0.11.0"
+test_upgrade_from.89beb4b.name = "0.12.0"
