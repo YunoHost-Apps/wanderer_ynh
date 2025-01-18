@@ -65,7 +65,7 @@ pushd "$install_dir/search"
 
     # Attendre que Meilisearch atteigne "Actix runtime found; starting in Actix runtime"
     while ! grep -q "Actix runtime found; starting in Actix runtime" "/var/log/$app/$app-search.log"; do
-        sleep 1
+        sleep 10
     done
     echo "Meilisearch is up and running"
 
