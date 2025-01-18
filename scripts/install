@@ -62,13 +62,17 @@ ynh_hide_warnings ynh_go_install
 
 ynh_script_progression "Building the search engine..."
 pushd "$install_dir/search"
+	export MEILI_URL=http://127.0.0.1:$port_meili
     export MEILI_MASTER_KEY=$key
     export MEILI_NO_ANALYTICS=true
-    "$install_dir"/search/meilisearch --config-file-path="$install_dir/search/config.toml" --import-dump migrations/migration.dump > "/var/log/$app/$app.log" 2>&1 &
+    "$install_dir"/search/meilisearch --config-file-path="$install_dir/search/config.toml" --ignore-dump-if-db-exists --import-dump migrations/migration.dump
 popd
 
 ynh_script_progression "Building the database (it will take some time)..."
 pushd "$install_dir/db"
+	export MEILI_URL=http://127.0.0.1:$port_meili
+	export MEILI_MASTER_KEY=$key
+	export MEILI_NO_ANALYTICS=true
 	export GOPATH="$install_dir/build/go"
 	export GOCACHE="$install_dir/build/.cache"
 	ynh_hide_warnings ynh_exec_as_app CGO_ENABLED=1 go mod tidy 
