@@ -63,6 +63,9 @@ popd
 
 ynh_script_progression "Building the database (it will take some time)..."
 pushd "$install_dir/db"
+	export MEILI_URL=http://127.0.0.1:$port_meili
+	export MEILI_MASTER_KEY=$key
+	export MEILI_NO_ANALYTICS=true
 	export GOPATH="$install_dir/build/go"
 	export GOCACHE="$install_dir/build/.cache"
 	ynh_hide_warnings ynh_exec_as_app CGO_ENABLED=1 go mod tidy 
