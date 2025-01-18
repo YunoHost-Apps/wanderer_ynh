@@ -56,35 +56,11 @@ ynh_hide_warnings ynh_go_install
 
 ynh_script_progression "Building the search engine..."
 pushd "$install_dir/search"
-	export MEILI_URL=http://127.0.0.1:$port_meili
     export MEILI_MASTER_KEY=$key
     export MEILI_NO_ANALYTICS=true
-    
-	# Lance Meilisearch en arrière-plan et redirige les logs vers un fichier
-    "$install_dir"/search/meilisearch --config-file-path="$install_dir/search/config.toml" --ignore-dump-if-db-exists --import-dump migrations/migration.dump > "/var/log/$app/$app-search.log" 2>&1 &
-
-    # Wait for the specific log message with a timeout
-    TIMEOUT=100  # Timeout after 100 seconds
-    START_TIME=$(date +%s)
-
-    while true; do
-        if grep -q 'Actix runtime found; starting in Actix runtime' "/var/log/$app/$app-search.log"; then
-            echo "Meilisearch is up and running"
-            break
-        fi
-
-        CURRENT_TIME=$(date +%s)
-        ELAPSED_TIME=$((CURRENT_TIME - START_TIME))
-
-        if [ "$ELAPSED_TIME" -ge "$TIMEOUT" ]; then
-            echo "Timeout waiting for Meilisearch to start"
-            exit 1
-        fi
-
-        sleep 1
-    done
-
+    "$install_dir"/search/meilisearch --config-file-path="$install_dir/search/config.toml" --import-dump migrations/migration.dump > "/var/log/$app/$app.log" 2>&1 &
 popd
+
 
 ynh_script_progression "Building the database (it will take some time)..."
 pushd "$install_dir/db"
