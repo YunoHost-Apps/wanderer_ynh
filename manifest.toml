@@ -83,3 +83,6 @@ ram.runtime = "50M"
     meili.default = 7700
     pocketbase.default = 8090
     pocketbase.fixed = true
+
+    [resources.apt]
+    packages = "vitest"
