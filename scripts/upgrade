@@ -94,6 +94,7 @@ pushd "$install_dir/web"
 	export PUBLIC_POCKETBASE_URL=http://127.0.0.1:$port_pocketbase
 	export NODE_ENV=production
 	export CYPRESS_INSTALL_BINARY=0
+	ynh_hide_warnings ynh_exec_as_app npm install vite
 	ynh_hide_warnings ynh_exec_as_app npm ci --omit=dev
     ynh_hide_warnings ynh_exec_as_app PUBLIC_VALHALLA_URL=https://valhalla1.openstreetmap.de npm run build
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
