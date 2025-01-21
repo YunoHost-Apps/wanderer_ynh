@@ -34,7 +34,7 @@ ynh_nodejs_install
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
-ynh_setup_source --dest_dir="$install_dir" --full_replace --source_id="main" --keep="db"
+ynh_setup_source --dest_dir="$install_dir" --full_replace --source_id="main" --keep="$install_dir/db/pb_data"
 ynh_setup_source --dest_dir="$install_dir/search" --source_id="meili"
 
 chmod +x "$install_dir/search/meilisearch"
@@ -56,18 +56,31 @@ ynh_hide_warnings ynh_go_install
 
 ynh_script_progression "Building the search engine..."
 pushd "$install_dir/search"
-    export MEILI_MASTER_KEY=$key
-    export MEILI_NO_ANALYTICS=true
-    "$install_dir"/search/meilisearch --config-file-path="$install_dir/search/config.toml" --ignore-dump-if-db-exists --import-dump migrations/migration.dump > "/var/log/$app/$app.log" 2>&1 &
+	export MEILI_URL=http://127.0.0.1:$port_meili
+	export MEILI_MASTER_KEY=$key
+	export MEILI_NO_ANALYTICS=true
+    "$install_dir"/search/meilisearch --config-file-path="$install_dir/search/config.toml" --import-dump migrations/migration.dump > "/var/log/$app/$app-search.log" 2>&1 &
 popd
+
+# Wait for the specific log message to appear
+ynh_script_progression "Waiting for Meilisearch to finish importing..."
+while ! grep -q "Actix runtime found; starting in Actix" "/var/log/$app/$app-search.log"; do
+    sleep 2 # Sleep for 2 seconds before checking the log file again
+done
+
+# Terminate Meilisearch process using pkill
+pkill -f "$install_dir/search/meilisearch"
 
 ynh_script_progression "Building the database (it will take some time)..."
 pushd "$install_dir/db"
+	export MEILI_URL=http://127.0.0.1:$port_meili
+	export MEILI_MASTER_KEY=$key
+	export MEILI_NO_ANALYTICS=true
 	export GOPATH="$install_dir/build/go"
 	export GOCACHE="$install_dir/build/.cache"
 	ynh_hide_warnings ynh_exec_as_app CGO_ENABLED=1 go mod tidy 
 	ynh_hide_warnings go build
-	popd
+popd
 
 ynh_go_remove
 ynh_safe_rm "$install_dir/build"
@@ -75,12 +88,18 @@ ynh_safe_rm "$install_dir/.cache"
 
 ynh_script_progression "Building the web (it will take some time)..."
 pushd "$install_dir/web"
-	ynh_hide_warnings ynh_exec_as_app npm ci
+	export MEILI_URL=http://127.0.0.1:$port_meili
+	export MEILI_MASTER_KEY=$key
+	export MEILI_NO_ANALYTICS=true
+	export PUBLIC_POCKETBASE_URL=http://127.0.0.1:$port_pocketbase
+	export NODE_ENV=production
+	export CYPRESS_INSTALL_BINARY=0
+	ynh_hide_warnings ynh_exec_as_app npm install vite
+	ynh_hide_warnings ynh_exec_as_app npm ci --include=dev
     ynh_hide_warnings ynh_exec_as_app PUBLIC_VALHALLA_URL=https://valhalla1.openstreetmap.de npm run build
+	ynh_hide_warnings ynh_exec_as_app npm ci --omit=dev
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
 popd
-
-pkill meilisearch
 
 chown -R $app:$app "$install_dir/"
 
