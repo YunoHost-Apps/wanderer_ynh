@@ -15,6 +15,9 @@ ynh_script_progression "Storing installation settings..."
 disable_signup="false"
 ynh_app_setting_set --key=disable_signup --value="$disable_signup"
 
+key=$(ynh_string_random --length=45 | base64)
+ynh_app_setting_set --key=key --value=$key
+
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
@@ -37,15 +40,11 @@ chmod +x "$install_dir/search/meilisearch"
 #=================================================
 ynh_script_progression "Adding $app's configuration files..."
 
-key=$(ynh_string_random --length=45 | base64)
-ynh_app_setting_set --key=key --value=$key
-
 ynh_config_add --template=".env" --destination="$install_dir/.env"
 ynh_config_add --template="meili-config.toml" --destination="$install_dir/search/config.toml"
 
-
-# Use logrotate to manage application logfile(s)
 ynh_config_add_logrotate
+
 touch /var/log/$app/$app-web.log
 touch /var/log/$app/$app-search.log
 touch /var/log/$app/$app-db.log
@@ -73,7 +72,7 @@ ynh_go_remove
 ynh_safe_rm "$install_dir/build"
 ynh_safe_rm "$install_dir/.cache"
 
-ynh_script_progression "Building the web (it will take some time)..."
+ynh_script_progression "Building the Web (it will take some time)..."
 pushd "$install_dir/web"
 	export MEILI_URL=http://127.0.0.1:$port_meili
 	export MEILI_MASTER_KEY=$key
@@ -103,7 +102,7 @@ ynh_config_add_systemd --service="${app}-web" --template="wanderer-web.service"
 
 yunohost service add "${app}-search" --description="Wanderer search service" --log="/var/log/$app/$app-search.log"
 yunohost service add "${app}-db" --description="Wanderer PocketBase service" --log="/var/log/$app/$app-db.log"
-yunohost service add "${app}-web" --description="Wanderer web service" --log="/var/log/$app/$app-web.log"
+yunohost service add "${app}-web" --description="Wanderer Web service" --log="/var/log/$app/$app-web.log"
 
 # ynh_config_add_fail2ban --logpath="/var/log/nginx/${domain}-error.log" --failregex="Regex to match into the log for a failed login"
 

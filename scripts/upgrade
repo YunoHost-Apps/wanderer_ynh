@@ -95,7 +95,7 @@ ynh_config_add_systemd --service="${app}-web" --template="wanderer-web.service"
 
 yunohost service add "${app}-search" --description="Wanderer search service" --log="/var/log/$app/$app-search.log"
 yunohost service add "${app}-db" --description="Wanderer PocketBase service" --log="/var/log/$app/$app-db.log"
-yunohost service add "${app}-web" --description="Wanderer web service" --log="/var/log/$app/$app-web.log"
+yunohost service add "${app}-web" --description="Wanderer Web service" --log="/var/log/$app/$app-web.log"
 
 ynh_config_add_logrotate
 
