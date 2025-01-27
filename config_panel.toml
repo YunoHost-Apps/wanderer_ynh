@@ -1,25 +1,17 @@
-
-## -----------------------------------------------------------------------------
-## IMPORTANT: In accordance with YunoHost's spirit, please keep things simple and 
-## do not overwhelm the admin with tons of misunderstandable or advanced settings.
-## -----------------------------------------------------------------------------
-
 version = "1.0"
 
-
 [main]
-name.en = "Main configuration"
-name.fr = "Configuration principale"
+name.en = "Wanderer configuration"
+name.fr = "Configuration de Wanderer"
 services = [ "__APP__-search", "__APP__-db", "__APP__-web" ]
 
-     
     [main.config]
     name.en = "Configuration options"
     name.fr = "Options de configuration"
 
         [main.config.disable_signup]
-        ask.en = "Disable sign up?"
-        ask.fr = "Fermer les inscriptions ?"
+        ask.en = "Disabling registration?"
+        ask.fr = "Désactivation de l'enregistrement ?"
         type = "boolean"
         yes = "true"
         no = "false"
