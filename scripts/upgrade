@@ -1,9 +1,5 @@
 #!/bin/bash
 
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
@@ -69,7 +65,7 @@ ynh_go_remove
 ynh_safe_rm "$install_dir/build"
 ynh_safe_rm "$install_dir/.cache"
 
-ynh_script_progression "Building the web (it will take some time)..."
+ynh_script_progression "Building the Web (it will take some time)..."
 pushd "$install_dir/web"
 	export MEILI_URL=http://127.0.0.1:$port_meili
 	export MEILI_MASTER_KEY=$key
@@ -102,8 +98,6 @@ yunohost service add "${app}-db" --description="Wanderer PocketBase service" --l
 yunohost service add "${app}-web" --description="Wanderer web service" --log="/var/log/$app/$app-web.log"
 
 ynh_config_add_logrotate
-
-# ynh_config_add_fail2ban --logpath="/var/log/nginx/${domain}-error.log" --failregex="Regex to match into the log for a failed login"
 
 #=================================================
 # START SYSTEMD SERVICE
