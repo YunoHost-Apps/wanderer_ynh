@@ -79,7 +79,6 @@ ram.runtime = "50M"
     main.url = "/"
 
     [resources.ports]
-    main.default = 3000
     meili.default = 7700
     pocketbase.default = 8090
     pocketbase.fixed = true
