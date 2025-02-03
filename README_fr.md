@@ -28,7 +28,7 @@ Wanderer est une base de données de sentiers auto-hébergée. Vous pouvez tél�
 - Créez des listes personnalisées pour mieux organiser vos itinéraires
 
 
-**Version incluse :** 0.14.0~ynh1
+**Version incluse :** 0.14.0~ynh3
 
 **Démo :** <https://demo.wanderer.to/>
 
