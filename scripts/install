@@ -41,7 +41,6 @@ chmod +x "$install_dir/search/meilisearch"
 ynh_script_progression "Adding $app's configuration files..."
 
 ynh_config_add --template=".env" --destination="$install_dir/.env"
-ynh_config_add --template="meili-config.toml" --destination="$install_dir/search/config.toml"
 
 ynh_config_add_logrotate
 
@@ -62,6 +61,10 @@ ynh_script_progression "Building the database (it will take some time)..."
 pushd "$install_dir/db"
 	export MEILI_URL=http://127.0.0.1:$port_meili
 	export MEILI_MASTER_KEY=$key
+	export MEILI_NO_ANALYTICS=true
+	export PUBLIC_POCKETBASE_URL=http://127.0.0.1:$port_pocketbase
+	export NODE_ENV=production
+
 	export GOPATH="$install_dir/build/go"
 	export GOCACHE="$install_dir/build/.cache"
 	ynh_hide_warnings ynh_exec_as_app CGO_ENABLED=1 go mod tidy 
@@ -79,10 +82,11 @@ pushd "$install_dir/web"
 	export MEILI_NO_ANALYTICS=true
 	export PUBLIC_POCKETBASE_URL=http://127.0.0.1:$port_pocketbase
 	export NODE_ENV=production
+	
 	export CYPRESS_INSTALL_BINARY=0
 	ynh_hide_warnings ynh_exec_as_app npm install vite
 	ynh_hide_warnings ynh_exec_as_app npm ci --include=dev
-    ynh_hide_warnings ynh_exec_as_app PUBLIC_VALHALLA_URL=https://valhalla1.openstreetmap.de npm run build
+	ynh_hide_warnings ynh_exec_as_app PUBLIC_VALHALLA_URL=https://valhalla1.openstreetmap.de npm run build
 	ynh_hide_warnings ynh_exec_as_app npm ci --omit=dev
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
 popd

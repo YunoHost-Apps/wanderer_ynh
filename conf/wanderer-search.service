@@ -8,7 +8,7 @@ User=__APP__
 Group=__APP__
 EnvironmentFile=__INSTALL_DIR__/.env
 WorkingDirectory=__INSTALL_DIR__/search
-ExecStart=__INSTALL_DIR__/search/meilisearch --master-key __KEY__ --config-file-path __INSTALL_DIR__/search/config.toml
+ExecStart=__INSTALL_DIR__/search/meilisearch --master-key __KEY__ --http-addr 127.0.0.1:__PORT_MEILI__
 StandardOutput=append:/var/log/__APP__/__APP__-search.log
 StandardError=inherit
 
