@@ -8,7 +8,8 @@ source /usr/share/yunohost/helpers
 #=================================================
 
 ynh_app_setting_set_default --key=disable_signup --value=false
-ynh_app_setting_set_default --key=encrypt_key --value=$encrypt_key
+
+ynh_app_setting_set_default --key=encrypt_key --value=$(ynh_string_random --length=32 | base64)
 
 #=================================================
 # STOP SYSTEMD SERVICE
