@@ -55,9 +55,18 @@ pushd "$install_dir/search"
 	export MEILI_URL=http://127.0.0.1:$port_meili
 	export MEILI_MASTER_KEY=$key
 	export MEILI_NO_ANALYTICS=true
-
-	./meilisearch --experimental-dumpless-upgrade 
+    "$install_dir"/search/meilisearch --experimental-dumpless-upgrade > "/var/log/$app/$app-search.log" 2>&1 &
 popd
+
+# Wait for the specific log message to appear
+ynh_script_progression "Waiting for Meilisearch to finish importing..."
+while ! grep -q "Actix runtime found; starting in Actix" "/var/log/$app/$app-search.log"; do
+    sleep 2 # Sleep for 2 seconds before checking the log file again
+done
+
+# Terminate Meilisearch process using pkill
+pkill -f "$install_dir/search/meilisearch"
+
 
 ynh_script_progression "Building the database (it will take some time)..."
 pushd "$install_dir/db"
