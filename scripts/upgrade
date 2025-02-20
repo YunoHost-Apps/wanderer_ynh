@@ -8,6 +8,7 @@ source /usr/share/yunohost/helpers
 #=================================================
 
 ynh_app_setting_set_default --key=disable_signup --value=false
+ynh_app_setting_set_default --key=encrypt_key --value=$encrypt_key
 
 #=================================================
 # STOP SYSTEMD SERVICE
@@ -48,6 +49,15 @@ ynh_config_add --template=".env" --destination="$install_dir/.env"
 ynh_script_progression "Installing dependencies..."
 
 ynh_hide_warnings ynh_go_install
+
+ynh_script_progression "Upgrading meilisearch database"
+pushd "$install_dir/search"
+	export MEILI_URL=http://127.0.0.1:$port_meili
+	export MEILI_MASTER_KEY=$key
+	export MEILI_NO_ANALYTICS=true
+
+	meilisearch --experimental-dumpless-upgrade 
+popd
 
 ynh_script_progression "Building the database (it will take some time)..."
 pushd "$install_dir/db"
