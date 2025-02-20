@@ -9,6 +9,8 @@ source /usr/share/yunohost/helpers
 
 ynh_app_setting_set_default --key=disable_signup --value=false
 
+ynh_app_setting_set_default --key=encrypt_key --value=$(ynh_string_random --length=32 | base64)
+
 #=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
@@ -48,6 +50,24 @@ ynh_config_add --template=".env" --destination="$install_dir/.env"
 ynh_script_progression "Installing dependencies..."
 
 ynh_hide_warnings ynh_go_install
+
+ynh_script_progression "Upgrading meilisearch database"
+pushd "$install_dir/search"
+	export MEILI_URL=http://127.0.0.1:$port_meili
+	export MEILI_MASTER_KEY=$key
+	export MEILI_NO_ANALYTICS=true
+    "$install_dir"/search/meilisearch --experimental-dumpless-upgrade > "/var/log/$app/$app-search.log" 2>&1 &
+popd
+
+# Wait for the specific log message to appear
+ynh_script_progression "Waiting for Meilisearch to finish importing..."
+while ! grep -q "Actix runtime found; starting in Actix" "/var/log/$app/$app-search.log"; do
+    sleep 2 # Sleep for 2 seconds before checking the log file again
+done
+
+# Terminate Meilisearch process using pkill
+pkill -f "$install_dir/search/meilisearch"
+
 
 ynh_script_progression "Building the database (it will take some time)..."
 pushd "$install_dir/db"
