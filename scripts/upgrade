@@ -56,7 +56,7 @@ pushd "$install_dir/search"
 	export MEILI_MASTER_KEY=$key
 	export MEILI_NO_ANALYTICS=true
 
-	meilisearch --experimental-dumpless-upgrade 
+	./meilisearch --experimental-dumpless-upgrade 
 popd
 
 ynh_script_progression "Building the database (it will take some time)..."
