@@ -47,8 +47,8 @@ ram.runtime = "50M"
     type = "boolean"
 
 [resources]
- 
-     [resources.sources]
+
+    [resources.sources]
 
     [resources.sources.main]
     url = "https://github.com/Flomp/wanderer/archive/refs/tags/v0.15.2.tar.gz"
