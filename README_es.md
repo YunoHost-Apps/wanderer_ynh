@@ -28,7 +28,7 @@ Wanderer is a self-hosted trail database. You can upload your recorded tracks or
 - Create custom lists to organize your trails further
 
 
-**Versión actual:** 0.15.2~ynh5
+**Versión actual:** 0.15.2~ynh6
 
 **Demo:** <https://demo.wanderer.to/>
 
