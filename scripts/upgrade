@@ -9,7 +9,12 @@ source /usr/share/yunohost/helpers
 
 ynh_app_setting_set_default --key=disable_signup --value=false
 
-ynh_app_setting_set_default --key=encrypt_key --value=$(ynh_string_random --length=32 | base64)
+
+if ynh_app_upgrading_from_version_before 0.16.0~ynh1
+then
+encrypt_key=$(ynh_string_random --length=32 | base64)
+ynh_app_setting_set --key=encrypt_key --value=$encrypt_key
+fi
 
 #=================================================
 # STOP SYSTEMD SERVICE
