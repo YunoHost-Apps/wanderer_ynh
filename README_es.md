@@ -3,7 +3,7 @@ Este archivo README esta generado automaticamente<https://github.com/YunoHost/ap
 No se debe editar a mano.
 -->
 
-# Wanderer para Yunohost
+# Wanderer para YunoHost
 
 [![Nivel de integración](https://apps.yunohost.org/badge/integration/wanderer)](https://ci-apps.yunohost.org/ci/apps/wanderer/)
 ![Estado funcional](https://apps.yunohost.org/badge/state/wanderer)
@@ -28,7 +28,7 @@ Wanderer is a self-hosted trail database. You can upload your recorded tracks or
 - Create custom lists to organize your trails further
 
 
-**Versión actual:** 0.16.0~ynh1
+**Versión actual:** 0.16.1~ynh1
 
 **Demo:** <https://demo.wanderer.to/>
 
