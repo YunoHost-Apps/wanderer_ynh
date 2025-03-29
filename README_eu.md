@@ -28,7 +28,7 @@ Wanderer is a self-hosted trail database. You can upload your recorded tracks or
 - Create custom lists to organize your trails further
 
 
-**Paketatutako bertsioa:** 0.16.0~ynh1
+**Paketatutako bertsioa:** 0.16.1~ynh1
 
 **Demoa:** <https://demo.wanderer.to/>
 
@@ -49,7 +49,7 @@ Wanderer is a self-hosted trail database. You can upload your recorded tracks or
 
 Bidali `pull request`a [`testing` abarrera](https://github.com/YunoHost-Apps/wanderer_ynh/tree/testing).
 
-`testing` abarra probatzeko, ondorengoa egin:
+`testing` abarra probatzeko, honakoa egin:
 
 ```bash
 sudo yunohost app install https://github.com/YunoHost-Apps/wanderer_ynh/tree/testing --debug
