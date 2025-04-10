@@ -18,7 +18,7 @@ ynh_app_setting_set --key=disable_signup --value="$disable_signup"
 key=$(ynh_string_random --length=45 | base64)
 ynh_app_setting_set --key=key --value=$key
 
-encrypt_key=$(ynh_string_random --length=32 | base64)
+encrypt_key=$(ynh_string_random --length=32)
 ynh_app_setting_set --key=encrypt_key --value=$encrypt_key
 
 #=================================================
