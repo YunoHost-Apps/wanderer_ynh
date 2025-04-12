@@ -43,7 +43,7 @@ ram.runtime = "50M"
 
     [install.disable_signup]
     ask.en = "Enable sign up?"
-    ask.fr = "Autoriser les inscriptions ?"
+    ask.fr = "Autoriser les inscriptions ?"
     type = "boolean"
 
 [resources]
