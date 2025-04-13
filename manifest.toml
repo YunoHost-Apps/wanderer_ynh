@@ -7,7 +7,7 @@ name = "Wanderer"
 description.en = "Self-hosted trail database. Save your adventures! "
 description.fr = "Base de données de trails auto-hébergée. Sauvegardez vos aventures !"
 
-version = "0.16.1~ynh2"
+version = "0.16.2~ynh1"
 
 maintainers = ["Thovi98"]
 
@@ -43,7 +43,7 @@ ram.runtime = "50M"
 
     [install.disable_signup]
     ask.en = "Enable sign up?"
-    ask.fr = "Autoriser les inscriptions ?"
+    ask.fr = "Autoriser les inscriptions ?"
     type = "boolean"
 
 [resources]
@@ -51,8 +51,8 @@ ram.runtime = "50M"
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://github.com/Flomp/wanderer/archive/refs/tags/v0.16.1.tar.gz"
-    sha256 = "eb7e7615f07fbf7243ae111d6d7c5a1d602a38f9d5a5480e33e5e3d77d69ab37"
+    url = "https://github.com/Flomp/wanderer/archive/refs/tags/v0.16.2.tar.gz"
+    sha256 = "b0f528d39381226a66a4f099e935a3dd52ea8d19d8696c440aa1dc849d5075e7"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.sources.meili]
