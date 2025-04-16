@@ -70,6 +70,7 @@ ram.runtime = "50M"
     autoupdate.asset.arm64 = "^meilisearch-linux-aarch64$"
 
     [resources.system_user]
+    allow_email = true
 
     [resources.install_dir]
 
