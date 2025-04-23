@@ -37,7 +37,7 @@ ynh_nodejs_install
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
-ynh_setup_source --dest_dir="$install_dir" --source_id="main"
+ynh_setup_source --dest_dir="$install_dir" --full_replace --source_id="main" --keep="db search"
 ynh_setup_source --dest_dir="$install_dir/search" --source_id="meili"
 
 chmod +x "$install_dir/search/meilisearch"
