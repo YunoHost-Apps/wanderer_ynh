@@ -89,7 +89,7 @@ ram.runtime = "50M"
     [resources.permissions]
     main.url = "/"
 
-    pocketbase.url = "/admin/_/"
+    pocketbase.url = "/admin"
     pocketbase.allowed = "admins"
     pocketbase.show_tile = false
     pocketbase.protected = true
