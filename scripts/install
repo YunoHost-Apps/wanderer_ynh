@@ -12,6 +12,9 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression "Storing installation settings..."
 
+admin=$(ynh_user_get_info --username=$admin --key=username)
+admin_mail=$(ynh_user_get_info --username=$admin --key=mail)
+
 disable_signup="false"
 ynh_app_setting_set --key=disable_signup --value="$disable_signup"
 
@@ -95,6 +98,8 @@ pushd "$install_dir/web"
 popd
 
 chown -R $app:$app "$install_dir/"
+
+"$install_dir/db/pocketbase superuser upsert $admin_mail $password"
 
 #=================================================
 # SYSTEM CONFIGURATION
