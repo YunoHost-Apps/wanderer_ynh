@@ -97,9 +97,10 @@ pushd "$install_dir/web"
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
 popd
 
-chown -R $app:$app "$install_dir/"
-
+ynh_script_progression "Registrating admin user..."
 "$install_dir"/db/pocketbase superuser upsert $admin_mail $password
+
+chown -R $app:$app "$install_dir/"
 
 #=================================================
 # SYSTEM CONFIGURATION
