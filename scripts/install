@@ -98,6 +98,7 @@ pushd "$install_dir/web"
 popd
 
 ynh_script_progression "Registrating admin user..."
+export POCKETBASE_ENCRYPTION_KEY=$encrypt_key
 "$install_dir"/db/pocketbase superuser upsert $admin_mail $password
 
 chown -R $app:$app "$install_dir/"
