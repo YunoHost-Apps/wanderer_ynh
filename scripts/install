@@ -99,7 +99,7 @@ popd
 
 chown -R $app:$app "$install_dir/"
 
-"$install_dir/db/pocketbase superuser upsert $admin_mail $password"
+"$install_dir"/db/pocketbase superuser upsert $admin_mail $password
 
 #=================================================
 # SYSTEM CONFIGURATION
