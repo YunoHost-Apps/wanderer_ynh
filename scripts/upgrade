@@ -10,7 +10,7 @@ source /usr/share/yunohost/helpers
 ynh_app_setting_set_default --key=disable_signup --value=false
 
 
-if ynh_app_upgrading_from_version_before 0.16.1~ynh2
+if ynh_app_upgrading_from_version_before 0.16.4~ynh3
 then
 encrypt_key=$(ynh_string_random --length=32)
 ynh_app_setting_set --key=encrypt_key --value=$encrypt_key

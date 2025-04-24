@@ -12,6 +12,9 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression "Storing installation settings..."
 
+admin=$(ynh_user_get_info --username=$admin --key=username)
+admin_mail=$(ynh_user_get_info --username=$admin --key=mail)
+
 disable_signup="false"
 ynh_app_setting_set --key=disable_signup --value="$disable_signup"
 
@@ -93,6 +96,10 @@ pushd "$install_dir/web"
 	ynh_hide_warnings ynh_exec_as_app npm ci --omit=dev
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
 popd
+
+ynh_script_progression "Registrating admin user..."
+export POCKETBASE_ENCRYPTION_KEY=$encrypt_key
+"$install_dir"/db/pocketbase superuser upsert $admin_mail $password
 
 chown -R $app:$app "$install_dir/"
 

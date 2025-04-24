@@ -1,5 +1,5 @@
 [Unit]
-Description=__APP__’s search service
+Description=__APP__ search service
 After=network.target
 
 [Service]
