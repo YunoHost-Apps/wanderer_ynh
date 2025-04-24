@@ -7,7 +7,7 @@ name = "Wanderer"
 description.en = "Self-hosted trail database. Save your adventures! "
 description.fr = "Base de données de trails auto-hébergée. Sauvegardez vos aventures !"
 
-version = "0.16.4~ynh1"
+version = "0.16.4~ynh2"
 
 maintainers = ["Thovi98"]
 
@@ -40,6 +40,16 @@ ram.runtime = "50M"
     [install.init_main_permission]
     type = "group"
     default = "visitors"
+    
+    [install.admin]
+    type = "user"
+    help.en = "You will be able to login for admin stuffs with the email of this user and the password you’ll set below."
+    help.fr = "Vous pourrez vous connecter pour les tâches d’administrateur avec l’adresse courriel de cet utilisateur et le mot de passe configuré ci-dessous."
+
+    [install.password]
+    help.en = "Choose a password for your admin user here."
+    help.fr = "Choisissez un mot de passe pour l’utilisateur admin ici."
+    type = "password"
 
     [install.disable_signup]
     ask.en = "Enable sign up?"
@@ -78,6 +88,13 @@ ram.runtime = "50M"
 
     [resources.permissions]
     main.url = "/"
+
+    pocketbase.url = "/admin"
+    pocketbase.allowed = "admins"
+    pocketbase.show_tile = false
+    pocketbase.protected = true
+    pocketbase.auth_header = false
+
 
     [resources.ports]
     meili.default = 7700

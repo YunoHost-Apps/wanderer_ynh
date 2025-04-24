@@ -1,5 +1,5 @@
 [Unit]
-Description=__APP__’s PocketBase Service
+Description=__APP__ PocketBase Service
 After=network.target
 After=wanderer-search.service
 

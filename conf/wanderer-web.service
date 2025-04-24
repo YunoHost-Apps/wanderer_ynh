@@ -1,5 +1,5 @@
 [Unit]
-Description=__APP__’s web service
+Description=__APP__ web service
 After=network.target
 After=wanderer-search.service
 After=wanderer-db.service
