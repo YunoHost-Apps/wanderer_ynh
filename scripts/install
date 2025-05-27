@@ -94,7 +94,6 @@ pushd "$install_dir/web"
 
 	ynh_hide_warnings ynh_exec_as_app npm ci --omit=dev
 	ynh_hide_warnings ynh_exec_as_app npm install --save-dev vitest
-	ynh_hide_warnings ynh_exec_as_app npm exec svelte-kit sync
 	ynh_hide_warnings ynh_exec_as_app npm run build
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
 popd
