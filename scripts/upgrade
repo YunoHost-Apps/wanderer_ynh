@@ -98,9 +98,14 @@ pushd "$install_dir/web"
 	export MEILI_MASTER_KEY=$key
 	export MEILI_NO_ANALYTICS=true
 	export PUBLIC_POCKETBASE_URL=http://127.0.0.1:$port_pocketbase
-	export NODE_ENV=production
 	
+	export NODE_ENV=production
 	export CYPRESS_INSTALL_BINARY=0
+	
+	ram_G=$((($(ynh_get_ram --total) - (1024/2))/1024))
+	ram_G=$(($ram_G > 1 ? $ram_G : 1))
+	export NODE_OPTIONS="--max_old_space_size=$(($ram_G*1024))"
+
 	ynh_hide_warnings ynh_exec_as_app npm install vite
 	ynh_hide_warnings ynh_exec_as_app npm ci --include=dev
 	ynh_hide_warnings ynh_exec_as_app PUBLIC_VALHALLA_URL=https://valhalla1.openstreetmap.de npm run build
