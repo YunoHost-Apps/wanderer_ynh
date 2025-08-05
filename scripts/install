@@ -91,6 +91,10 @@ pushd "$install_dir/web"
 
 	export NODE_ENV=production
 	export CYPRESS_INSTALL_BINARY=0
+	
+	ram_G=$((($(ynh_get_ram --total) - (1024/2))/1024))
+	ram_G=$(($ram_G > 1 ? $ram_G : 1))
+	export NODE_OPTIONS="--max_old_space_size=$(($ram_G*1024))"
 
 	ynh_hide_warnings ynh_exec_as_app npm ci --omit=dev
 	ynh_hide_warnings ynh_exec_as_app npm install --save-dev vitest
