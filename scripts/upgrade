@@ -111,9 +111,19 @@ pushd "$install_dir/web"
 	ynh_hide_warnings ynh_exec_as_app PUBLIC_VALHALLA_URL=https://valhalla1.openstreetmap.de npm run build
 	ynh_hide_warnings ynh_exec_as_app npm ci --omit=dev
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
+	ynh_hide_warnings ynh_exec_as_app npm prune --production
 popd
 
 chown -R $app:$app "$install_dir/"
+
+#Remove unneeded files
+ynh_safe_rm "$install_dir"/go
+ynh_safe_rm "$install_dir"/web/.svelte-kit/
+ynh_safe_rm "$install_dir"/web/tests
+ynh_safe_rm "$install_dir"/docs
+ynh_safe_rm "$install_dir"/.npm
+ynh_safe_rm "$install_dir"/.github
+ynh_safe_rm "$install_dir"/.config
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
