@@ -91,11 +91,16 @@ pushd "$install_dir/web"
 
 	export NODE_ENV=production
 	export CYPRESS_INSTALL_BINARY=0
+	
+	ram_G=$((($(ynh_get_ram --total) - (1024/2))/1024))
+	ram_G=$(($ram_G > 1 ? $ram_G : 1))
+	export NODE_OPTIONS="--max_old_space_size=$(($ram_G*1024))"
 
 	ynh_hide_warnings ynh_exec_as_app npm ci --omit=dev
 	ynh_hide_warnings ynh_exec_as_app npm install --save-dev vitest
 	ynh_hide_warnings ynh_exec_as_app npm run build
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
+	ynh_hide_warnings ynh_exec_as_app npm prune --production
 popd
 
 ynh_script_progression "Registrating admin user..."
@@ -103,6 +108,15 @@ export POCKETBASE_ENCRYPTION_KEY=$encrypt_key
 "$install_dir"/db/pocketbase superuser upsert $admin_mail $password
 
 chown -R $app:$app "$install_dir/"
+
+#Remove unneeded files
+ynh_safe_rm "$install_dir"/go
+ynh_safe_rm "$install_dir"/web/.svelte-kit/
+ynh_safe_rm "$install_dir"/web/tests
+ynh_safe_rm "$install_dir"/docs
+ynh_safe_rm "$install_dir"/.npm
+ynh_safe_rm "$install_dir"/.github
+ynh_safe_rm "$install_dir"/.config
 
 #=================================================
 # SYSTEM CONFIGURATION
