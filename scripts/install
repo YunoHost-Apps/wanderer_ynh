@@ -29,7 +29,7 @@ ynh_app_setting_set --key=encrypt_key --value=$encrypt_key
 #=================================================
 ynh_script_progression "Installing dependencies..."
 
-ynh_nodejs_install
+#ynh_nodejs_install
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -61,7 +61,7 @@ chown -R $app:$app /var/log/$app/
 #=================================================
 ynh_script_progression "Installing dependencies..."
 
-ynh_hide_warnings ynh_go_install
+#ynh_hide_warnings ynh_go_install
 
 ynh_script_progression "Building the database (it will take some time)..."
 pushd "$install_dir/db"

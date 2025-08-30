@@ -99,3 +99,9 @@ ram.runtime = "50M"
     [resources.ports]
     meili.default = 7700
     pocketbase.default = 8090
+
+    [resources.nodejs]
+    version = "18"
+
+    [resources.go]
+    version = "1.23.2"

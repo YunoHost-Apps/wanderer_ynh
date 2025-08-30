@@ -4,5 +4,5 @@
 # COMMON VARIABLES AND CUSTOM HELPERS
 #=================================================
 
-go_version="1.23.2"
-nodejs_version="22"
+#go_version="1.23.2"
+#nodejs_version="22"
