@@ -77,7 +77,7 @@ pushd "$install_dir/db"
 	ynh_hide_warnings go build
 popd
 
-ynh_go_remove
+#ynh_go_remove
 ynh_safe_rm "$install_dir/build"
 ynh_safe_rm "$install_dir/.cache"
 
