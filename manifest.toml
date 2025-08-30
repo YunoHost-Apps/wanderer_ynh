@@ -101,7 +101,7 @@ ram.runtime = "50M"
     pocketbase.default = 8090
 
     [resources.nodejs]
-    version = "18"
+    version = "22"
 
     [resources.go]
     version = "1.23.2"
