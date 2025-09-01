@@ -26,13 +26,6 @@ ynh_systemctl --service="${app}-db" --action="stop"
 ynh_systemctl --service="${app}-web" --action="stop"
 
 #=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-ynh_script_progression "Installing dependencies..."
-
-#ynh_nodejs_install
-
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Upgrading source files..."
@@ -53,8 +46,6 @@ ynh_config_add --template=".env" --destination="$install_dir/.env"
 # BUILDING SOURCES AND SETTING UP THE SERVER
 #=================================================
 ynh_script_progression "Installing dependencies..."
-
-ynh_hide_warnings ynh_go_install
 
 ynh_script_progression "Upgrading meilisearch database"
 pushd "$install_dir/search"
@@ -88,7 +79,6 @@ pushd "$install_dir/db"
 	ynh_hide_warnings go build
 popd
 
-ynh_go_remove
 ynh_safe_rm "$install_dir/build"
 ynh_safe_rm "$install_dir/.cache"
 
