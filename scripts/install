@@ -25,13 +25,6 @@ encrypt_key=$(ynh_string_random --length=32)
 ynh_app_setting_set --key=encrypt_key --value=$encrypt_key
 
 #=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-ynh_script_progression "Installing dependencies..."
-
-#ynh_nodejs_install
-
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Setting up source files..."
@@ -61,8 +54,6 @@ chown -R $app:$app /var/log/$app/
 #=================================================
 ynh_script_progression "Installing dependencies..."
 
-#ynh_hide_warnings ynh_go_install
-
 ynh_script_progression "Building the database (it will take some time)..."
 pushd "$install_dir/db"
 	export MEILI_URL=http://127.0.0.1:$port_meili
@@ -77,7 +68,6 @@ pushd "$install_dir/db"
 	ynh_hide_warnings go build
 popd
 
-#ynh_go_remove
 ynh_safe_rm "$install_dir/build"
 ynh_safe_rm "$install_dir/.cache"
 
@@ -134,8 +124,6 @@ yunohost service add "${app}-db" --description="Wanderer PocketBase service" --l
 yunohost service add "${app}-web" --description="Wanderer Web service" --log="/var/log/$app/$app-web.log"
 
 # ynh_config_add_fail2ban --logpath="/var/log/nginx/${domain}-error.log" --failregex="Regex to match into the log for a failed login"
-
-
 
 #=================================================
 # START SYSTEMD SERVICE
