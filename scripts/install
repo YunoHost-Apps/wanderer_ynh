@@ -85,10 +85,11 @@ pushd "$install_dir/web"
 	ram_G=$((($(ynh_get_ram --total) - (1024/2))/1024))
 	ram_G=$(($ram_G > 1 ? $ram_G : 1))
 	export NODE_OPTIONS="--max_old_space_size=$(($ram_G*1024))"
+	ynh_script_progression "Allowing $(($ram_G*1024)) RAM"
 
-	ynh_hide_warnings ynh_exec_as_app npm ci --omit=dev
-	ynh_hide_warnings ynh_exec_as_app npm install --save-dev vitest
-	ynh_hide_warnings ynh_exec_as_app npm run build
+	ynh_hide_warnings ynh_exec_as_app env NODE_OPTIONS=$NODE_OPTIONS npm ci --omit=dev
+	ynh_hide_warnings ynh_exec_as_app env NODE_OPTIONS=$NODE_OPTIONS npm install --save-dev vitest
+	ynh_hide_warnings ynh_exec_as_app env NODE_OPTIONS=$NODE_OPTIONS npm run build
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
 	ynh_hide_warnings ynh_exec_as_app npm prune --production
 popd
