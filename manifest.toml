@@ -7,7 +7,7 @@ name = "Wanderer"
 description.en = "Self-hosted trail database. Save your adventures! "
 description.fr = "Base de données de trails auto-hébergée. Sauvegardez vos aventures !"
 
-version = "0.18.3~ynh18"
+version = "0.18.3~ynh19"
 
 maintainers = ["Thovi98"]
 
@@ -66,10 +66,10 @@ ram.runtime = "50M"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.sources.meili]
-    amd64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.32.1/meilisearch-linux-amd64"
-    amd64.sha256 = "44614425252bb5190934b1c830fa87316d902e18baa771f5c17011f1b85d8a35"
-    arm64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.32.1/meilisearch-linux-aarch64"
-    arm64.sha256 = "e5f786e0f542d6263620d1f017f106e5e3097e050f9fe8957e1f9491d93bb81f"
+    amd64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.32.2/meilisearch-linux-amd64"
+    amd64.sha256 = "794084f4d70d0d577419dde20ffb73ff4ffcab48207a4e21b6e1aacbce9f9a84"
+    arm64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.32.2/meilisearch-linux-aarch64"
+    arm64.sha256 = "d72f6094d95f92d65cf28d6592b4ee132d1f836d61a79eedcd00a41cbd64b376"
     rename = "meilisearch"
     in_subdir = false
     extract = false
