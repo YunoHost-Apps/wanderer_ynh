@@ -27,7 +27,7 @@ Self-hosted trail database. Save your adventures!
 
 [![Automatic tests level](https://apps.yunohost.org/badge/cilevel/wanderer)](https://ci-apps.yunohost.org/ci/apps/wanderer/)
 
-🛠️ Upstream Wanderer repository: <https://github.com/Flomp/wanderer>
+🛠️ Upstream Wanderer repository: <https://github.com/open-wanderer/wanderer>
 
 Pull request are welcome and should target the [`testing` branch](https://github.com/YunoHost-Apps/wanderer_ynh/tree/testing).
 
