@@ -7,7 +7,7 @@ name = "Wanderer"
 description.en = "Self-hosted trail database. Save your adventures! "
 description.fr = "Base de données de trails auto-hébergée. Sauvegardez vos aventures !"
 
-version = "0.18.4~ynh2"
+version = "0.18.5~ynh1"
 
 maintainers = ["Thovi98"]
 
@@ -61,8 +61,8 @@ ram.runtime = "50M"
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://github.com/open-wanderer/wanderer/archive/refs/tags/v0.18.4.tar.gz"
-    sha256 = "0c2ebcd1184e2910a230603f198282b0ae8bddfd794a9f0e31f8d8ec69f41f92"
+    url = "https://github.com/open-wanderer/wanderer/archive/refs/tags/v0.18.5.tar.gz"
+    sha256 = "241a90fe1c78dfcab7979d89d7d4fab48fa252961d48792b06d078d0de13ab47"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.sources.meili]
