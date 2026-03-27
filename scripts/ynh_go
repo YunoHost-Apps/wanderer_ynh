@@ -64,12 +64,12 @@ ynh_go_install() {
 
     [[ -n "${go_version:-}" ]] || ynh_die "\$go_version should be defined prior to calling ynh_go_install"
 
+    ynh_mise_install
+
     # Install the requested version of Go
     local final_go_version=$("${MISE_BIN_DIR}"/mise ls-remote go@"$go_version" --json | jq -r '.[].version' | tail -n1 )
     go_version=${final_go_version:-$go_version}
     ynh_app_setting_set --key=go_version --value="$go_version"
-
-    ynh_mise_install
 
     # Installing precompiled go from the $install_dir so the created mise.toml will be at the right place
     pushd "$install_dir" || ynh_die

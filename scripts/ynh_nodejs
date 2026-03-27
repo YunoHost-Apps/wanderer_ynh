@@ -70,16 +70,16 @@ ynh_nodejs_install() {
 
     [[ -n "${nodejs_version:-}" ]] || ynh_die "\$nodejs_version should be defined prior to calling ynh_nodejs_install"
 
+    ynh_mise_install
+
     # Install the requested version of nodejs
     local final_nodejs_version=$("${MISE_BIN_DIR}"/mise ls-remote nodejs@"$nodejs_version" --json | jq -r '.[].version' | tail -n1 )
     nodejs_version=${final_nodejs_version:-$nodejs_version}
     ynh_app_setting_set --key=nodejs_version --value="$nodejs_version"
 
-    ynh_mise_install
-
     # Installing precompiled nodejs from the $install_dir so the created mise.toml will be at the right place
     pushd "$install_dir" || ynh_die
-        # The path has to be set before the following command for npm to now where to find node
+        # The path has to be set for npm to now where to find node
         PATH="$MISE_DATA_DIR/installs/node/$nodejs_version/bin:$PATH"
         ynh_hide_warnings env MISE_DATA_DIR="$MISE_DATA_DIR" MISE_CACHE_DIR="$MISE_CACHE_DIR" "$MISE_BIN_DIR"/mise use nodejs@"$nodejs_version"
     popd || ynh_die
@@ -93,16 +93,13 @@ ynh_nodejs_install() {
 #
 # usage: ynh_nodejs_remove
 ynh_nodejs_remove() {
-
-    [[ -n "${nodejs_version:-}" ]] || ynh_die "\$nodejs_version should be defined prior to calling ynh_nodejs_remove"
-
-    ynh_app_setting_delete --key="nodejs_version"
-
-    # Cleanup Node versions
     _ynh_nodejs_cleanup
 }
 
 _ynh_nodejs_cleanup() {
+    [[ -n "${nodejs_version:-}" ]] || ynh_die "\$nodejs_version should be defined prior to calling ynh_nodejs_remove"
+
+    ynh_app_setting_delete --key="nodejs_version"
 
     # Remove no more needed versions of nodejs used by the app.
     # This helper will check what nodejs version are no more required,
@@ -115,4 +112,15 @@ _ynh_nodejs_cleanup() {
             ynh_hide_warnings "$MISE_BIN_DIR/mise" uninstall nodejs@"$installed_nodejs_version"
         fi
     done
+
+    # LEGACY but still here for transition
+    export GOENV_ROOT="/opt/goenv"
+    if -e "$GOENV_ROOT"; then
+    
+        # If no other app uses n, remove n
+        if ! grep -q "^nodejs_version:" /etc/yunohost/apps/*/settings.yml; then
+            ynh_safe_rm "$N_PREFIX"
+            sed --in-place "/N_PREFIX/d" /root/.bashrc
+        fi
+    fi
 }
