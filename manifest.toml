@@ -62,7 +62,7 @@ ram.runtime = "50M"
 
     [resources.sources.main]
     url = "https://github.com/Thovi98/wanderer/releases/download/v0.18.5/wanderer-v0.18.5-amd64.tar.gz"
-    sha256 = "241a90fe1c78dfcab7979d89d7d4fab48fa252961d48792b06d078d0de13ab47"
+    sha256 = "2e62f78b82f49706e306d19efcf72dd6094d0ca326316cf3650f17bedee443c7"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
