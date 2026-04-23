@@ -48,6 +48,10 @@ touch /var/log/$app/$app-db.log
 chown -R $app:$app /var/log/$app/
 
 ynh_script_progression "Registrating admin user..."
+	export MEILI_URL=http://127.0.0.1:$port_meili
+	export MEILI_MASTER_KEY=$key
+	export MEILI_NO_ANALYTICS=true
+
 	export POCKETBASE_ENCRYPTION_KEY=$encrypt_key
 	"$install_dir"/db/pocketbase superuser upsert $admin_mail $password
 
