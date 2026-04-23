@@ -61,23 +61,9 @@ ram.runtime = "50M"
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://github.com/open-wanderer/wanderer/archive/refs/tags/v0.18.5.tar.gz"
+    url = "https://github.com/Thovi98/wanderer/releases/download/v0.18.5/wanderer-v0.18.5-amd64.tar.gz"
     sha256 = "241a90fe1c78dfcab7979d89d7d4fab48fa252961d48792b06d078d0de13ab47"
     autoupdate.strategy = "latest_github_tag"
-
-    [resources.sources.meili]
-    amd64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.42.1/meilisearch-linux-amd64"
-    amd64.sha256 = "86853aa78bb5b55f08c07287baf7df19ed6b98a4ba7a12c3c3c24f14f9c09091"
-    arm64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.42.1/meilisearch-linux-aarch64"
-    arm64.sha256 = "9ca6ade076852c1eae32caffb14c5e53956eeef068826a01b89cfa08752cfb7c"
-    rename = "meilisearch"
-    in_subdir = false
-    extract = false
-
-    autoupdate.strategy = "latest_github_release"
-    autoupdate.upstream = "https://github.com/meilisearch/meilisearch"
-    autoupdate.asset.amd64 = "^meilisearch-linux-amd64$"
-    autoupdate.asset.arm64 = "^meilisearch-linux-aarch64$"
 
     [resources.system_user]
     allow_email = true
