@@ -16,3 +16,12 @@ services = [ "__APP__-search", "__APP__-db", "__APP__-web" ]
         yes = "true"
         no = "false"
         bind = "PUBLIC_DISABLE_SIGNUP:__INSTALL_DIR__/.env"
+
+        [main.config.private]
+        ask.en = "Make the instance private?"
+        ask.fr = "Rendre l’instance privée ?"
+        help.en = "Setting this to true will block visitors from viewing content without an account"
+        type = "boolean"
+        yes = "true"
+        no = "false"
+        bind = "PUBLIC_PRIVATE_INSTANCE:__INSTALL_DIR__/.env"

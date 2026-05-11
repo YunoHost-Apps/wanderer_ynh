@@ -21,7 +21,7 @@ code = "https://github.com/open-wanderer/wanderer"
 fund = "https://buymeacoffee.com/wanderertrails"
 
 [integration]
-yunohost = ">= 12.1.38"
+yunohost = ">= 12.1.39"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = false
@@ -54,6 +54,12 @@ ram.runtime = "50M"
     [install.disable_signup]
     ask.en = "Enable sign up?"
     ask.fr = "Autoriser les inscriptions ?"
+    type = "boolean"
+
+    [install.private]
+    ask.en = "Make the instance private?"
+    ask.fr = "Rendre l’instance privée ?"
+    help.en = "Setting this to true will block visitors from viewing content without an account"
     type = "boolean"
 
 [resources]
@@ -95,7 +101,6 @@ ram.runtime = "50M"
     pocketbase.protected = true
     pocketbase.auth_header = false
 
-
     [resources.ports]
     meili.default = 7700
     pocketbase.default = 8090
@@ -104,4 +109,4 @@ ram.runtime = "50M"
     version = "22"
 
     [resources.go]
-    version = "1.23.2"
+    version = "1.25.0"
