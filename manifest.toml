@@ -7,7 +7,7 @@ name = "Wanderer"
 description.en = "Self-hosted trail database. Save your adventures! "
 description.fr = "Base de données de trails auto-hébergée. Sauvegardez vos aventures !"
 
-version = "0.18.5~ynh1"
+version = "0.19.0~ynh1"
 
 maintainers = ["Thovi98"]
 
@@ -21,7 +21,7 @@ code = "https://github.com/open-wanderer/wanderer"
 fund = "https://buymeacoffee.com/wanderertrails"
 
 [integration]
-yunohost = ">= 12.1.38"
+yunohost = ">= 12.1.39"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = false
@@ -56,20 +56,26 @@ ram.runtime = "50M"
     ask.fr = "Autoriser les inscriptions ?"
     type = "boolean"
 
+    [install.private]
+    ask.en = "Make the instance private?"
+    ask.fr = "Rendre l’instance privée ?"
+    help.en = "Setting this to true will block visitors from viewing content without an account"
+    type = "boolean"
+
 [resources]
 
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://github.com/open-wanderer/wanderer/archive/refs/tags/v0.18.5.tar.gz"
-    sha256 = "241a90fe1c78dfcab7979d89d7d4fab48fa252961d48792b06d078d0de13ab47"
+    url = "https://github.com/open-wanderer/wanderer/archive/refs/tags/v0.19.1.tar.gz"
+    sha256 = "c8cf03db27b18b0166a3403d4ede4fc85d528457ba6516cce6aa4ce91f6c1132"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.sources.meili]
-    amd64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.35.1/meilisearch-linux-amd64"
-    amd64.sha256 = "fe20439ecfec1eb380f069dda0d9a2c2a595b35b915f416deb89214aab98d98e"
-    arm64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.35.1/meilisearch-linux-aarch64"
-    arm64.sha256 = "061e546e413fdec4e10d3899f16d5b6796365b793968f9798524ed846f592d2e"
+    amd64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.43.0/meilisearch-linux-amd64"
+    amd64.sha256 = "3583ed1260dd71fdc7645ab9abcc3cdf7002758cbb877f0cf905671c9c747645"
+    arm64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.43.0/meilisearch-linux-aarch64"
+    arm64.sha256 = "b4e419798312b96d67ad575d6fb1f4f9e32f8ce562af2e40d6c9dcecaac256cc"
     rename = "meilisearch"
     in_subdir = false
     extract = false
@@ -85,16 +91,17 @@ ram.runtime = "50M"
     [resources.install_dir]
 
     [resources.data_dir]
+    subdirs = [ "uploads"]
 
     [resources.permissions]
     main.url = "/"
+    main.auth_header = false
 
     pocketbase.url = "/admin"
     pocketbase.allowed = "admins"
     pocketbase.show_tile = false
     pocketbase.protected = true
     pocketbase.auth_header = false
-
 
     [resources.ports]
     meili.default = 7700
@@ -104,4 +111,4 @@ ram.runtime = "50M"
     version = "22"
 
     [resources.go]
-    version = "1.23.2"
+    version = "1.25.0"
