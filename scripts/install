@@ -63,8 +63,8 @@ pushd "$install_dir/db"
 
 	export GOPATH="$install_dir/build/go"
 	export GOCACHE="$install_dir/build/.cache"
-	ynh_hide_warnings ynh_exec_as_app CGO_ENABLED=1 go mod tidy 
-	ynh_hide_warnings go build
+	ynh_hide_warnings ynh_exec_as_app CGO_ENABLED=1 go mod download
+	ynh_hide_warnings ynh_exec_as_app CGO_ENABLED=0 go build -ldflags="-s -w" -o "$install_dir/db/pocketbase"
 popd
 
 ynh_safe_rm "$install_dir/build"
