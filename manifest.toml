@@ -67,8 +67,8 @@ ram.runtime = "50M"
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://github.com/open-wanderer/wanderer/archive/refs/tags/v0.19.0.tar.gz"
-    sha256 = "688e4c984f4f9e28e9559615dc54586bbbf99765766c5f93135edb04572afb67"
+    url = "https://github.com/open-wanderer/wanderer/archive/refs/tags/v0.19.1.tar.gz"
+    sha256 = "c8cf03db27b18b0166a3403d4ede4fc85d528457ba6516cce6aa4ce91f6c1132"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.sources.meili]
