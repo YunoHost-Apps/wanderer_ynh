@@ -126,7 +126,8 @@ _ynh_nodejs_cleanup() {
     done
 
     # LEGACY but still here for transition
-    export N_PREFIX="/opt/node_n"
+    # Commenting following line because it conflicts with current official helpers
+    # export N_PREFIX="/opt/node_n"
     
     if [ -e "$N_PREFIX" ]; then
         # If no other app uses n, remove n

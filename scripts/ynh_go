@@ -119,7 +119,8 @@ _ynh_go_cleanup() {
     done
 
     # LEGACY but still here for transition
-    export GOENV_ROOT="/opt/goenv"
+    # Commenting following line because it conflicts with current official helpers
+    # export GOENV_ROOT="/opt/goenv"
     if [ -e "$GOENV_ROOT" ]; then
     
         # If no app uses Go anymore
