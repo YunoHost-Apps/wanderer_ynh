@@ -22,7 +22,7 @@
 _ynh_load_go_in_path_and_other_tweaks() {
 
     # Get the absolute path of this version of go
-    go_dir=$(MISE_DATA_DIR=$MISE_DATA_DIR MISE_CACHE_DIR=$MISE_CACHE_DIR "$MISE_BIN_DIR/mise" bin-paths "go@$go_version")
+    go_dir=$("$MISE_BIN_DIR/mise" bin-paths "go@$go_version")
 
     if [ ! -e "$go_dir" ]; then
         echo "Skipping loading go, because it doesn't seem to be provisioned yet. This is likely to happen during restore and other specific contexts."
@@ -42,6 +42,10 @@ _ynh_load_go_in_path_and_other_tweaks() {
     path_with_go="$PATH"
     # shellcheck disable=SC2034
     PATH_with_go="$PATH"
+
+    # Cleanup Go versions
+    # Calling it here will remove unused versions on install/upgrade as well
+    _ynh_go_cleanup
 }
 
 # Auto-load Go path tweaks if this app uses the Go resource in the manifest
@@ -73,7 +77,8 @@ ynh_go_install() {
 
     # Installing precompiled go from the $install_dir so the created mise.toml will be at the right place
     pushd "$install_dir" || ynh_die
-        ynh_hide_warnings env MISE_DATA_DIR="$MISE_DATA_DIR" MISE_CACHE_DIR="$MISE_CACHE_DIR" "$MISE_BIN_DIR"/mise use go@"$go_version"
+        ynh_print_info "Installing go@$go_version"
+        ynh_hide_warnings "$MISE_BIN_DIR"/mise use go@"$go_version"
     popd || ynh_die
 
     _ynh_load_go_in_path_and_other_tweaks
@@ -104,11 +109,9 @@ ynh_go_remove() {
 # usage: _ynh_go_cleanup
 _ynh_go_cleanup() {
 
-    # This helper will check what Go version are no more required,
-    # and uninstall them
-    local installed_go_versions=$(MISE_DATA_DIR=$MISE_DATA_DIR MISE_CACHE_DIR=$MISE_CACHE_DIR "${MISE_BIN_DIR}/mise" ls go --json | jq -r '.[].version')
+    local installed_go_versions=$("${MISE_BIN_DIR}/mise" ls go --json | jq -r '.[].version')
     for installed_go_version in $installed_go_versions; do
-        if [[ -n "$installed_go_version" ]] && ! grep -qE "^go_version: '?$installed_go_version'?" /etc/yunohost/apps/*/settings.yml; then
+        if [[ -n "$installed_go_version" ]] && [[ "$installed_go_version" != "$go_version" ]] && ! grep -qE "^go_version: '?$installed_go_version'?" /etc/yunohost/apps/*/settings.yml; then
             ynh_print_info "Removing go@$installed_go_version"
             ynh_hide_warnings "$MISE_BIN_DIR/mise" unuse go@"$installed_go_version"
             ynh_hide_warnings "$MISE_BIN_DIR/mise" uninstall go@"$installed_go_version"
@@ -117,7 +120,7 @@ _ynh_go_cleanup() {
 
     # LEGACY but still here for transition
     export GOENV_ROOT="/opt/goenv"
-    if -e "$GOENV_ROOT"; then
+    if [ -e "$GOENV_ROOT" ]; then
     
         # If no app uses Go anymore
         if ! grep -q "^go_version:" /etc/yunohost/apps/*/settings.yml; then
