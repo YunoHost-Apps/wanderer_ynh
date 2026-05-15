@@ -5,6 +5,7 @@ After=wanderer-search.service
 
 [Service]
 Type=simple
+Restart=always
 User=__APP__
 Group=__APP__
 EnvironmentFile=__INSTALL_DIR__/.env
