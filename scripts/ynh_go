@@ -118,6 +118,9 @@ _ynh_go_cleanup() {
         fi
     done
 
+    # Remove mise if no apps use it anymore
+    _ynh_mise_cleanup
+
     # LEGACY but still here for transition
     # Commenting following line because it conflicts with current official helpers
     # export GOENV_ROOT="/opt/goenv"
