@@ -42,10 +42,6 @@ _ynh_load_go_in_path_and_other_tweaks() {
     path_with_go="$PATH"
     # shellcheck disable=SC2034
     PATH_with_go="$PATH"
-
-    # Cleanup Go versions
-    # Calling it here will remove unused versions on install/upgrade as well
-    _ynh_go_cleanup
 }
 
 # Auto-load Go path tweaks if this app uses the Go resource in the manifest
@@ -80,6 +76,10 @@ ynh_go_install() {
         ynh_print_info "Installing go@$go_version"
         ynh_hide_warnings "$MISE_BIN_DIR"/mise use go@"$go_version"
     popd || ynh_die
+
+    # Cleanup Go versions
+    # Calling it here will remove unused versions on install/upgrade as well
+    _ynh_go_cleanup
 
     _ynh_load_go_in_path_and_other_tweaks
 }

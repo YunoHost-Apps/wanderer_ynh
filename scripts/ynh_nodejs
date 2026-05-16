@@ -47,10 +47,6 @@ _ynh_load_nodejs_in_path_and_other_tweaks() {
     export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
     export NPM_CONFIG_UPDATE_NOTIFIER=false
     export MISE_NODE_COREPACK=true
-
-    # Cleanup Node versions
-    # Calling it here will remove unused versions on install/upgrade as well
-    _ynh_nodejs_cleanup
 }
 
 # Auto-load Nodejs path tweaks if this app uses the nodejs resource in the manifest
@@ -87,6 +83,10 @@ ynh_nodejs_install() {
         PATH="$MISE_DATA_DIR/installs/node/$nodejs_version/bin:$PATH"
         ynh_hide_warnings "$MISE_BIN_DIR"/mise use nodejs@"$nodejs_version"
     popd || ynh_die
+
+    # Cleanup Node versions
+    # Calling it here will remove unused versions on install/upgrade as well
+    _ynh_nodejs_cleanup
 
     _ynh_load_nodejs_in_path_and_other_tweaks
 }
