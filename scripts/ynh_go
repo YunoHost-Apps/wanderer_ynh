@@ -93,6 +93,16 @@ ynh_go_remove() {
 
     [[ -n "${go_version:-}" ]] || ynh_die "\$go_version should be defined prior to calling ynh_go_remove"
 
+    # Remove Go only if no other apps use it
+    local installed_versions=$("${MISE_BIN_DIR}/mise" ls go --json | jq -r '.[].version')
+    for version in $installed_versions; do
+        if ! grep -qE "^go_version: '?$version'?" /etc/yunohost/apps/*/settings.yml; then
+            ynh_print_info "Removing go@$version"
+            ynh_hide_warnings "$MISE_BIN_DIR/mise" unuse go@"$version"
+            ynh_hide_warnings "$MISE_BIN_DIR/mise" uninstall go@"$version"
+        fi
+    done
+
     ynh_app_setting_delete --key="go_version"
 
     # Cleanup Go versions
@@ -109,12 +119,12 @@ ynh_go_remove() {
 # usage: _ynh_go_cleanup
 _ynh_go_cleanup() {
 
-    local installed_go_versions=$("${MISE_BIN_DIR}/mise" ls go --json | jq -r '.[].version')
-    for installed_go_version in $installed_go_versions; do
-        if [[ -n "$installed_go_version" ]] && [[ "$installed_go_version" != "$go_version" ]] && ! grep -qE "^go_version: '?$installed_go_version'?" /etc/yunohost/apps/*/settings.yml; then
-            ynh_print_info "Removing go@$installed_go_version"
-            ynh_hide_warnings "$MISE_BIN_DIR/mise" unuse go@"$installed_go_version"
-            ynh_hide_warnings "$MISE_BIN_DIR/mise" uninstall go@"$installed_go_version"
+    local installed_versions=$("${MISE_BIN_DIR}/mise" ls go --json | jq -r '.[].version')
+    for version in $installed_versions; do
+        if [[ -n "$version" ]] && [[ "$version" != "$go_version" ]] && ! grep -qE "^go_version: '?$version'?" /etc/yunohost/apps/*/settings.yml; then
+            ynh_print_info "Removing go@$version"
+            ynh_hide_warnings "$MISE_BIN_DIR/mise" unuse go@"$version"
+            ynh_hide_warnings "$MISE_BIN_DIR/mise" uninstall go@"$version"
         fi
     done
 
