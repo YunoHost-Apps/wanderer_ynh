@@ -104,7 +104,7 @@ ynh_mise_install() {
 
 # [internal]
 _ynh_mise_cleanup() {
-    if $("${MISE_BIN_DIR}/mise" ls --json | jq '. == []'); then
+    if $("${MISE_BIN_DIR}/mise" ls --json | jq '. == {}'); then
         ynh_print_info "Removing mise"
         ynh_safe_rm "$MISE_INSTALL_DIR"
     fi
