@@ -124,14 +124,14 @@ _ynh_go_cleanup() {
     # LEGACY but still here for transition
     # Commenting following line because it conflicts with current official helpers
     # export GOENV_ROOT="/opt/goenv"
-    if [ -e "$GOENV_ROOT" ]; then
-    
-        # If no app uses Go anymore
-        if ! grep -q "^go_version:" /etc/yunohost/apps/*/settings.yml; then
-            # Remove goenv environment configuration
-            # ynh_print_info "Removing goenv"
-            ynh_safe_rm "$GOENV_ROOT"
-            ynh_safe_rm "/etc/profile.d/goenv.sh"
-        fi
-    fi
+ #   if [ -e "$GOENV_ROOT" ]; then
+ #   
+ #       # If no app uses Go anymore
+ #       if ! grep -q "^go_version:" /etc/yunohost/apps/*/settings.yml; then
+ #           # Remove goenv environment configuration
+ #           # ynh_print_info "Removing goenv"
+ #           ynh_safe_rm "$GOENV_ROOT"
+ #           ynh_safe_rm "/etc/profile.d/goenv.sh"
+ #       fi
+ #   fi
 }

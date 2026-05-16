@@ -132,11 +132,11 @@ _ynh_nodejs_cleanup() {
     # Commenting following line because it conflicts with current official helpers
     # export N_PREFIX="/opt/node_n"
     
-    if [ -e "$N_PREFIX" ]; then
-        # If no other app uses n, remove n
-        if ! grep -q "^nodejs_version:" /etc/yunohost/apps/*/settings.yml; then
-            ynh_safe_rm "$N_PREFIX"
-            sed --in-place "/N_PREFIX/d" /root/.bashrc
-        fi
-    fi
+    #if [ -e "$N_PREFIX" ]; then
+    #    # If no other app uses n, remove n
+    #    if ! grep -q "^nodejs_version:" /etc/yunohost/apps/*/settings.yml; then
+    #        ynh_safe_rm "$N_PREFIX"
+    #        sed --in-place "/N_PREFIX/d" /root/.bashrc
+    #    fi
+    #fi
 }
