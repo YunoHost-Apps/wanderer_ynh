@@ -104,11 +104,8 @@ ynh_mise_install() {
 
 # [internal]
 _ynh_mise_cleanup() {
-    local installed_tools_versions=$("${MISE_BIN_DIR}/mise" ls --json | jq -r '.[].version')
-    for installed_tools_version in $installed_tools_versions; do
-        if [[ -n "$installed_tools_version" ]]; then
-            ynh_print_info "Removing mise"
-            ynh_safe_rm "$MISE_INSTALL_DIR"
-        fi
-    done
+    if $("${MISE_BIN_DIR}/mise" ls --json | [[ $(jq length <<<"$Response") -eq 0 ]]); then
+        ynh_print_info "Removing mise"
+        ynh_safe_rm "$MISE_INSTALL_DIR"
+    fi
 }
