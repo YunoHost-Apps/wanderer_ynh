@@ -119,7 +119,7 @@ _ynh_nodejs_cleanup() {
     nodejs_used_versions=$(
         for app in $(yunohost app list --json | jq -r '.apps[].id'); do
             yunohost app setting "$app" nodejs_version 2>/dev/null
-        done
+        done | tr '\n' ' '
     )
 
     local installed_versions=$("${MISE_BIN_DIR}/mise" ls nodejs --json | jq -r '.[].version' | grep -v '^$')
