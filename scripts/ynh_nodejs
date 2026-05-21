@@ -116,15 +116,21 @@ ynh_nodejs_remove() {
 # usage: _ynh_nodejs_cleanup
 _ynh_nodejs_cleanup() {
     
+    nodejs_used_versions=$(
+        for app in $(yunohost app list --json | jq -r '.apps[].id'); do
+            yunohost app setting "$app" nodejs_version 2>/dev/null
+        done
+    )
+
     local installed_versions=$("${MISE_BIN_DIR}/mise" ls nodejs --json | jq -r '.[].version')
     for version in $installed_versions; do
-        if [[ -n "$version" ]] && [[ "$version" != "$nodejs_version" ]] && ! grep -qE "^nodejs_version: '?$version'?" /etc/yunohost/apps/*/settings.yml; then
+        if [[ " $nodejs_used_versions " != *" $version "* ]]; then
             ynh_print_info "Removing nodejs@$version"
             ynh_hide_warnings "$MISE_BIN_DIR/mise" unuse nodejs@"$version"
             ynh_hide_warnings "$MISE_BIN_DIR/mise" uninstall nodejs@"$version"
         fi
     done
-
+    
     # Remove mise if no apps use it anymore
     _ynh_mise_cleanup
 

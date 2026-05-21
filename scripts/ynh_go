@@ -109,9 +109,15 @@ ynh_go_remove() {
 # usage: _ynh_go_cleanup
 _ynh_go_cleanup() {
 
+    go_used_versions=$(
+        for app in $(yunohost app list --json | jq -r '.apps[].id'); do
+            yunohost app setting "$app" go_version 2>/dev/null
+        done
+    )
+
     local installed_versions=$("${MISE_BIN_DIR}/mise" ls go --json | jq -r '.[].version')
     for version in $installed_versions; do
-        if [[ -n "$version" ]] && [[ "$version" != "$go_version" ]] && ! grep -qE "^go_version: '?$version'?" /etc/yunohost/apps/*/settings.yml; then
+        if [[ " $go_used_versions " != *" $version "* ]]; then
             ynh_print_info "Removing go@$version"
             ynh_hide_warnings "$MISE_BIN_DIR/mise" unuse go@"$version"
             ynh_hide_warnings "$MISE_BIN_DIR/mise" uninstall go@"$version"
