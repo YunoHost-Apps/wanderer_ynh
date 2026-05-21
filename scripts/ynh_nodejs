@@ -100,16 +100,6 @@ ynh_nodejs_remove() {
 
     [[ -n "${nodejs_version:-}" ]] || ynh_die "\$nodejs_version should be defined prior to calling ynh_nodejs_remove"
 
-    # Remove Nodejs only if no other apps use it
-    local installed_versions=$("${MISE_BIN_DIR}/mise" ls nodejs --json | jq -r '.[].version')
-    for version in $installed_versions; do
-        if ! grep -qE "^nodejs_version: '?$version'?" /etc/yunohost/apps/*/settings.yml; then
-            ynh_print_info "Removing nodejs@$version"
-            ynh_hide_warnings "$MISE_BIN_DIR/mise" unuse nodejs@"$version"
-            ynh_hide_warnings "$MISE_BIN_DIR/mise" uninstall nodejs@"$version"
-        fi
-    done
-
     ynh_app_setting_delete --key="nodejs_version"
 
     # Cleanup Node versions
