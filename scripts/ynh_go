@@ -112,7 +112,7 @@ _ynh_go_cleanup() {
     go_used_versions=$(
         for app in $(yunohost app list --json | jq -r '.apps[].id'); do
             yunohost app setting "$app" go_version 2>/dev/null
-        done
+        done | grep -v '^$'
     )
 
     local installed_versions=$("${MISE_BIN_DIR}/mise" ls go --json | jq -r '.[].version')
