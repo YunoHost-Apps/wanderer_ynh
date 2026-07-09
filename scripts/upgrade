@@ -29,7 +29,7 @@ ynh_systemctl --service="${app}-web" --action="stop"
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
-ynh_setup_source --dest_dir="$install_dir" --source_id="main" --full_replace --keep="db/pb_data search/data.ms"
+ynh_setup_source --dest_dir="$install_dir" --source_id="main" --full_replace --keep="db/pb_data search/data.ms data"
 ynh_setup_source --dest_dir="$install_dir/search" --source_id="meili"
 
 chmod +x "$install_dir/search/meilisearch"
@@ -102,6 +102,8 @@ pushd "$install_dir/web"
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
 	ynh_hide_warnings ynh_exec_as_app npm prune --production
 popd
+
+mkdir -p $install_dir/data/plugins
 
 chown -R $app:$app "$install_dir/"
 
