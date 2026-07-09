@@ -1,6 +1,10 @@
 #!/bin/bash
 
+source _common.sh
 source /usr/share/yunohost/helpers
+source ynh_mise
+source ynh_go
+source ynh_nodejs
 
 #=================================================
 # LOAD SETTINGS
@@ -23,6 +27,9 @@ ynh_script_progression "Stopping $app's systemd service..."
 ynh_systemctl --service="${app}-search" --action="stop"
 ynh_systemctl --service="${app}-db" --action="stop"
 ynh_systemctl --service="${app}-web" --action="stop"
+
+ynh_go_install
+ynh_nodejs_install
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
