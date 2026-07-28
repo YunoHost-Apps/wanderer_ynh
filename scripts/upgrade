@@ -51,7 +51,7 @@ pushd "$install_dir/search"
 	export MEILI_URL=http://127.0.0.1:$port_meili
 	export MEILI_MASTER_KEY=$key
 	export MEILI_NO_ANALYTICS=true
-    "$install_dir"/search/meilisearch --experimental-dumpless-upgrade > "/var/log/$app/$app-search.log" 2>&1 &
+    "$install_dir"/search/meilisearch --upgrade-db > "/var/log/$app/$app-search.log" 2>&1 &
 popd
 
 # Wait for the specific log message to appear
