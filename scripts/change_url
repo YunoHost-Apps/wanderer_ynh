@@ -1,6 +1,10 @@
 #!/bin/bash
 
+source _common.sh
 source /usr/share/yunohost/helpers
+source ynh_mise
+source ynh_go
+source ynh_nodejs
 
 #=================================================
 # STOP SYSTEMD SERVICE

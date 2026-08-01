@@ -1,6 +1,14 @@
 #!/bin/bash
 
+source ../settings/scripts/_common.sh
 source /usr/share/yunohost/helpers
+source ../settings/scripts/ynh_mise
+source ../settings/scripts/ynh_go
+source ../settings/scripts/ynh_nodejs
+
+
+ynh_go_install
+ynh_nodejs_install
 
 #=================================================
 # RESTORE THE APP MAIN DIR

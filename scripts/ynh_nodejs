@@ -1,0 +1,148 @@
+#!/usr/bin/env bash
+#
+# Copyright (c) 2024 YunoHost Contributors
+#
+# This file is part of YunoHost (see https://yunohost.org)
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+
+# [internal]
+_ynh_load_nodejs_in_path_and_other_tweaks() {
+
+    # Get the absolute path of this version of node
+    nodejs_dir=$("$MISE_BIN_DIR/mise" bin-paths "nodejs@$nodejs_version")
+
+    if [ ! -e "$nodejs_dir" ]; then
+        echo "Skipping loading nodejs, because it doesn't seem to be provisioned yet. This is likely to happen during restore and other specific contexts."
+        return
+    fi
+
+    # Load the path of this version of node in $PATH
+    if [[ :$PATH: != *":$nodejs_dir"* ]]; then
+        PATH="$nodejs_dir:$PATH"
+    fi
+
+    # Export PATH such that it's available through sudo -E / ynh_exec_as $app
+    export PATH
+
+    # This is in full lowercase such that it gets replaced in templates
+    # shellcheck disable=SC2034
+    path_with_nodejs="$PATH"
+    # shellcheck disable=SC2034
+    PATH_with_nodejs="$PATH"
+
+    # Prevent yet another Node and Corepack madness, with Corepack wanting the user to confirm download of Yarn
+    export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+    export NPM_CONFIG_UPDATE_NOTIFIER=false
+    export MISE_NODE_COREPACK=true
+}
+
+# Auto-load Nodejs path tweaks if this app uses the nodejs resource in the manifest
+if [ -n "${nodejs_version:-}" ] && (cat "$YNH_APP_BASEDIR/manifest.toml" | toml_to_json | jq -e ".resources.nodejs" > /dev/null); then
+    _ynh_load_nodejs_in_path_and_other_tweaks
+fi
+
+# Install a specific version of nodejs, using mise
+#
+# The installed version is defined by `$nodejs_version` which should be defined as global prior to calling this helper
+#
+# usage: ynh_nodejs_install
+#
+# The helper adds the appropriate, specific version of nodejs to the `$PATH` variable (which
+# is preserved when calling ynh_exec_as_app). Also defines:
+#
+# - `$path_with_nodejs` to be used in the systemd config (`Environment="PATH=__PATH_WITH_NODEJS__"`)
+# - `$nodejs_dir`, the directory containing the specific version of nodejs, which may be used in the systemd config too (e.g. `ExecStart=__NODEJS_DIR__/node foo bar`)
+ynh_nodejs_install() {
+
+    [[ -n "${nodejs_version:-}" ]] || ynh_die "\$nodejs_version should be defined prior to calling ynh_nodejs_install"
+
+    ynh_mise_install
+
+    # Install the requested version of nodejs
+    local final_nodejs_version=$("${MISE_BIN_DIR}"/mise ls-remote nodejs@"$nodejs_version" --json | jq -r '.[].version' | tail -n1 )
+    nodejs_version=${final_nodejs_version:-$nodejs_version}
+    ynh_app_setting_set --key=nodejs_version --value="$nodejs_version"
+
+    # Installing precompiled nodejs from the $install_dir so the created mise.toml will be at the right place
+    pushd "$install_dir" || ynh_die
+        ynh_print_info "Installing nodejs@$nodejs_version"
+        # The path has to be set for npm to now where to find node
+        PATH="$MISE_DATA_DIR/installs/node/$nodejs_version/bin:$PATH"
+        ynh_hide_warnings "$MISE_BIN_DIR"/mise use nodejs@"$nodejs_version"
+    popd || ynh_die
+
+    # Cleanup Node versions
+    # Calling it here will remove unused versions on install/upgrade as well
+    _ynh_nodejs_cleanup
+
+    _ynh_load_nodejs_in_path_and_other_tweaks
+}
+
+# Remove the version of Node used by the app.
+#
+# This helper will also cleanup unused Nodejs versions
+#
+# usage: ynh_nodejs_remove
+ynh_nodejs_remove() {
+
+    [[ -n "${nodejs_version:-}" ]] || ynh_die "\$nodejs_version should be defined prior to calling ynh_nodejs_remove"
+
+    ynh_app_setting_delete --key="nodejs_version"
+
+    # Cleanup Node versions
+    _ynh_nodejs_cleanup
+}
+
+# Remove no more needed versions of Node used by the app.
+#
+# [internal]
+#
+# This helper will check what Nodejs version are no more required,
+# and uninstall them
+#
+# usage: _ynh_nodejs_cleanup
+_ynh_nodejs_cleanup() {
+    
+    nodejs_used_versions=$(
+        for app in $(yunohost app list --json | jq -r '.apps[].id'); do
+            yunohost app setting "$app" nodejs_version 2>/dev/null
+        done | tr '\n' ' '
+    )
+
+    local installed_versions=$("${MISE_BIN_DIR}/mise" ls nodejs --json | jq -r '.[].version' | grep -v '^$')
+    for version in $installed_versions; do
+        if [[ " $nodejs_used_versions " != *" $version "* ]]; then
+            ynh_print_info "Removing nodejs@$version"
+            ynh_hide_warnings "$MISE_BIN_DIR/mise" unuse nodejs@"$version"
+            ynh_hide_warnings "$MISE_BIN_DIR/mise" uninstall nodejs@"$version"
+        fi
+    done
+
+    # Remove mise if no apps use it anymore
+    _ynh_mise_cleanup
+
+    # LEGACY but still here for transition
+    # Commenting following line because it conflicts with current official helpers
+    # export N_PREFIX="/opt/node_n"
+    
+    #if [ -e "$N_PREFIX" ]; then
+    #    # If no other app uses n, remove n
+    #    if ! grep -q "^nodejs_version:" /etc/yunohost/apps/*/settings.yml; then
+    #        ynh_safe_rm "$N_PREFIX"
+    #        sed --in-place "/N_PREFIX/d" /root/.bashrc
+    #    fi
+    #fi
+}
