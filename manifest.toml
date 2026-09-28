@@ -7,7 +7,7 @@ name = "Wanderer"
 description.en = "Self-hosted trail database. Save your adventures! "
 description.fr = "Base de données de trails auto-hébergée. Sauvegardez vos aventures !"
 
-version = "0.20.0~ynh8"
+version = "0.20.0~ynh2"
 
 maintainers = ["Thovi98"]
 
