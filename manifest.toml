@@ -103,6 +103,12 @@ ram.runtime = "50M"
     pocketbase.protected = true
     pocketbase.auth_header = false
 
+    api.url = "/api/v1"
+    api.allowed = "visitors"
+    api.show_tile = false
+    api.protected = false
+    api.auth_header = false
+
     [resources.ports]
     meili.default = 7700
     pocketbase.default = 8090
