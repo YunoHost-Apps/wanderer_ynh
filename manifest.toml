@@ -72,10 +72,10 @@ ram.runtime = "50M"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.sources.meili]
-    amd64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.54.0/meilisearch-linux-amd64"
-    amd64.sha256 = "4c039396c19436c248d3429935559c990f6606d4ada781e7079325f32bbb7a3c"
-    arm64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.54.0/meilisearch-linux-aarch64"
-    arm64.sha256 = "b7817c408620383b56e5b516df5bcf55ed1267dc755cadb79e6f97038fcded7c"
+    amd64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.54.1/meilisearch-linux-amd64"
+    amd64.sha256 = "12238e6b96fa60130d5e96bd3cfbbbade8d225abf5106e9a74d2c869c5b5184f"
+    arm64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.54.1/meilisearch-linux-aarch64"
+    arm64.sha256 = "a6ed99f56348200d8792d0cd3d0b18372da0ffcfe8c99bd8fbcbf0b9268cd8c2"
     rename = "meilisearch"
     in_subdir = false
     extract = false
