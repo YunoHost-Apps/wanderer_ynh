@@ -23,6 +23,9 @@ ynh_app_setting_set --key=key --value=$key
 encrypt_key=$(ynh_string_random --length=32)
 ynh_app_setting_set --key=encrypt_key --value=$encrypt_key
 
+proxy_secret=$(ynh_string_random --length=32)
+ynh_app_setting_set --key=proxy_secret --value=$proxy_secret
+
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
