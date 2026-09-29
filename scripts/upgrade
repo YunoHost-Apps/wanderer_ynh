@@ -15,6 +15,12 @@ encrypt_key=$(ynh_string_random --length=32)
 ynh_app_setting_set --key=encrypt_key --value=$encrypt_key
 fi
 
+if ynh_app_upgrading_from_version_before 0.21.0~ynh1
+then
+proxy_secret=$(ynh_string_random --length=32)
+ynh_app_setting_set --key=proxy_secret --value=$proxy_secret
+fi
+
 #=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
