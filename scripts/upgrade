@@ -101,7 +101,6 @@ pushd "$install_dir/web"
 	ram_G=$(($ram_G > 1 ? $ram_G : 1))
 	export NODE_OPTIONS="--max_old_space_size=$(($ram_G*1024))"
 
-	ynh_hide_warnings ynh_exec_as_app npm install vite
 	ynh_hide_warnings ynh_exec_as_app npm ci --include=dev
 	ynh_hide_warnings ynh_exec_as_app PUBLIC_VALHALLA_URL=https://valhalla1.openstreetmap.de npm run build
 	ynh_hide_warnings ynh_exec_as_app npm ci --omit=dev

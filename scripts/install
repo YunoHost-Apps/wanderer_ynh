@@ -89,9 +89,9 @@ pushd "$install_dir/web"
 	export NODE_OPTIONS="--max_old_space_size=$(($ram_G*1024))"
 	ynh_script_progression "Allowing $(($ram_G*1024)) RAM"
 
-	ynh_hide_warnings ynh_exec_as_app env NODE_OPTIONS=$NODE_OPTIONS npm ci --omit=dev
-	ynh_hide_warnings ynh_exec_as_app env NODE_OPTIONS=$NODE_OPTIONS npm install --save-dev vitest
-	ynh_hide_warnings ynh_exec_as_app env NODE_OPTIONS=$NODE_OPTIONS npm run build
+	ynh_hide_warnings ynh_exec_as_app npm ci --include=dev
+	ynh_hide_warnings ynh_exec_as_app PUBLIC_VALHALLA_URL=https://valhalla1.openstreetmap.de npm run build
+	ynh_hide_warnings ynh_exec_as_app npm ci --omit=dev
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
 	ynh_hide_warnings ynh_exec_as_app npm prune --production
 popd
