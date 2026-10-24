@@ -114,6 +114,15 @@ ynh_safe_rm "$install_dir"/.github
 ynh_safe_rm "$install_dir"/.config
 
 #=================================================
+# PLUGINS
+#=================================================
+ynh_script_progression "Adding default plugins..."
+
+ynh_setup_source --dest_dir="$install_dir/data/plugins" --source_id="plugin_hammeread"
+ynh_setup_source --dest_dir="$install_dir/data/plugins" --source_id="plugin_komoot"
+ynh_setup_source --dest_dir="$install_dir/data/plugins" --source_id="plugin_strava"
+
+#=================================================
 # SYSTEM CONFIGURATION
 #=================================================
 ynh_script_progression "Adding system configurations related to $app..."
