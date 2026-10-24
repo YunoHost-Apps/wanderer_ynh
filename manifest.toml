@@ -75,13 +75,18 @@ ram.runtime = "50M"
     [resources.sources.plugin_hammerhead]
     url = "https://github.com/open-wanderer/wanderer/releases/download/v0.21.2/wanderer-plugin-hammerhead.tar.gz"
     sha256 = "190bce13d11429ddfd99d2dfa85e862fcff85d56735d139bcb0ec699faa99dfa"
+
+    in_subdir = false
     
     autoupdate.strategy = "latest_github_release"
     autoupdate.asset = ".*hammerhead.tar.gz"
 
+
     [resources.sources.plugin_komoot]
     url = "https://github.com/open-wanderer/wanderer/releases/download/v0.21.2/wanderer-plugin-komoot.tar.gz"
     sha256 = "4ce259b8ec1a87d34ffaaa056ee32e03b6cfcacd88d3fbf3daac640b157fdb1a"
+
+    in_subdir = false
     
     autoupdate.strategy = "latest_github_release"
     autoupdate.asset = ".*komoot.tar.gz"
@@ -89,6 +94,8 @@ ram.runtime = "50M"
     [resources.sources.plugin_strava]
     url = "https://github.com/open-wanderer/wanderer/releases/download/v0.21.2/wanderer-plugin-strava.tar.gz"
     sha256 = "9a2950082a8b2a6c1093db66899fe90fef09e6a80ab2f339c77becb5bacfe77b"
+
+    in_subdir = false
     
     autoupdate.strategy = "latest_github_release"
     autoupdate.asset = ".*strava.tar.gz"
