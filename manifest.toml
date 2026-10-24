@@ -69,25 +69,29 @@ ram.runtime = "50M"
     [resources.sources.main]
     url = "https://github.com/open-wanderer/wanderer/archive/aa5d995dfde00b4557e9cb6ad5141382a04b2ee3.tar.gz"
     sha256 = "9306f3d230ca5fe39db25c53d2bf8dabf4f4bb9bd574630ddbbc35ca82bf02bf"
+    
     autoupdate.strategy = "latest_github_release"
 
     [resources.sources.plugin_hammerhead]
     url = "https://github.com/open-wanderer/wanderer/releases/download/v0.21.2/wanderer-plugin-hammerhead.tar.gz"
     sha256 = "190bce13d11429ddfd99d2dfa85e862fcff85d56735d139bcb0ec699faa99dfa"
+    
     autoupdate.strategy = "latest_github_release"
-    autoupdate.asset.amd64 = ".*hammerhead.tar.gz"
+    autoupdate.asset = ".*hammerhead.tar.gz"
 
     [resources.sources.plugin_komoot]
     url = "https://github.com/open-wanderer/wanderer/releases/download/v0.21.2/wanderer-plugin-komoot.tar.gz"
     sha256 = "4ce259b8ec1a87d34ffaaa056ee32e03b6cfcacd88d3fbf3daac640b157fdb1a"
+    
     autoupdate.strategy = "latest_github_release"
-    autoupdate.asset.amd64 = ".*komoot.tar.gz"
+    autoupdate.asset = ".*komoot.tar.gz"
 
     [resources.sources.plugin_strava]
     url = "https://github.com/open-wanderer/wanderer/releases/download/v0.21.2/wanderer-plugin-strava.tar.gz"
     sha256 = "9a2950082a8b2a6c1093db66899fe90fef09e6a80ab2f339c77becb5bacfe77b"
+    
     autoupdate.strategy = "latest_github_release"
-    autoupdate.asset.amd64 = ".*strava.tar.gz"
+    autoupdate.asset = ".*strava.tar.gz"
 
     [resources.sources.meili]
     amd64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.55.0/meilisearch-linux-amd64"
