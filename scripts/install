@@ -100,10 +100,6 @@ ynh_script_progression "Registrating admin user..."
 export POCKETBASE_ENCRYPTION_KEY=$encrypt_key
 "$install_dir"/db/pocketbase superuser upsert $admin_mail $password
 
-mkdir -p $install_dir/data/plugins
-
-chown -R $app:$app "$install_dir/"
-
 #Remove unneeded files
 ynh_safe_rm "$install_dir"/go
 ynh_safe_rm "$install_dir"/web/.svelte-kit/
@@ -118,9 +114,14 @@ ynh_safe_rm "$install_dir"/.config
 #=================================================
 ynh_script_progression "Adding default plugins..."
 
+mkdir -p $install_dir/data/plugins
+
 ynh_setup_source --dest_dir="$install_dir/data/plugins" --source_id="plugin_hammerhead"
 ynh_setup_source --dest_dir="$install_dir/data/plugins" --source_id="plugin_komoot"
 ynh_setup_source --dest_dir="$install_dir/data/plugins" --source_id="plugin_strava"
+
+chown -R $app:$app "$install_dir"
+
 
 #=================================================
 # SYSTEM CONFIGURATION
