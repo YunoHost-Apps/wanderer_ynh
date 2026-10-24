@@ -108,10 +108,6 @@ pushd "$install_dir/web"
 	ynh_hide_warnings ynh_exec_as_app npm prune --production
 popd
 
-mkdir -p $install_dir/data/plugins
-
-chown -R $app:$app "$install_dir/"
-
 #Remove unneeded files
 ynh_safe_rm "$install_dir"/go
 ynh_safe_rm "$install_dir"/web/.svelte-kit/
@@ -120,6 +116,19 @@ ynh_safe_rm "$install_dir"/docs
 ynh_safe_rm "$install_dir"/.npm
 ynh_safe_rm "$install_dir"/.github
 ynh_safe_rm "$install_dir"/.config
+
+#=================================================
+# PLUGINS
+#=================================================
+ynh_script_progression "Updating default plugins..."
+
+mkdir -p $install_dir/data/plugins
+
+ynh_setup_source --dest_dir="$install_dir/data/plugins" --source_id="plugin_hammerhead"
+ynh_setup_source --dest_dir="$install_dir/data/plugins" --source_id="plugin_komoot"
+ynh_setup_source --dest_dir="$install_dir/data/plugins" --source_id="plugin_strava"
+
+chown -R $app:$app "$install_dir"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
