@@ -16,7 +16,7 @@ license = "AGPL-3.0"
 website = "https://wanderer.to/"
 demo = "https://demo.wanderer.to/"
 admindoc = "https://wanderer.to/getting-started/installation/"
-userdoc = "https://wanderer.to/"
+userdoc = "https://wanderer.to/welcome"
 code = "https://github.com/open-wanderer/wanderer"
 fund = "https://buymeacoffee.com/wanderertrails"
 
