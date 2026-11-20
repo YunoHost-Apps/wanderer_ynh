@@ -41,7 +41,7 @@ ynh_setup_source --dest_dir="$install_dir/search" --source_id="meili"
 ynh_setup_source --dest_dir="$install_dir/tools" --source_id="pmtiles"
 
 chmod +x "$install_dir/search/meilisearch"
-chmod +x "$install_dir/tools/pmtiles"
+#chmod +x "$install_dir/tools/pmtiles"
 
 #=================================================
 # APP INITIAL CONFIGURATION
