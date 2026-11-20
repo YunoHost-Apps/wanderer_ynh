@@ -114,6 +114,17 @@ ram.runtime = "50M"
     autoupdate.asset.amd64 = "^meilisearch-linux-amd64$"
     autoupdate.asset.arm64 = "^meilisearch-linux-aarch64$"
 
+    [resources.sources.pmtiles]
+    amd64.url = "https://github.com/protomaps/go-pmtiles/releases/download/v1.31.2/go-pmtiles_1.31.2_Linux_x86_64.tar.gz"
+    amd64.sha256 = "3ed7dbf4ec2e6dfe5e25b6f70d1ffc932729f93c86db353bf514dd71010a312f"
+    arm64.url = "https://github.com/protomaps/go-pmtiles/releases/download/v1.31.2/go-pmtiles_1.31.2_Linux_arm64.tar.gz"
+    arm64.sha256 = "f8bd47e7ea866863489cad588fbaf2f31f42e5821f7a03f009b3769f05801cb1"
+
+    autoupdate.strategy = "latest_github_release"
+    autoupdate.upstream = "https://github.com/protomaps/go-pmtiles"
+    autoupdate.asset.amd64 = ".*Linux-x86_64"
+    autoupdate.asset.arm64 = ".*Linux-arm64"
+
     [resources.system_user]
     allow_email = true
 

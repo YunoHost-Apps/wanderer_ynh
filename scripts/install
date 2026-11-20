@@ -32,9 +32,12 @@ ynh_app_setting_set --key=proxy_secret --value=$proxy_secret
 ynh_script_progression "Setting up source files..."
 
 ynh_setup_source --dest_dir="$install_dir" --source_id="main"
+
 ynh_setup_source --dest_dir="$install_dir/search" --source_id="meili"
+ynh_setup_source --dest_dir="$install_dir" --source_id="pmtiles"
 
 chmod +x "$install_dir/search/meilisearch"
+chmod +x "$install_dir/tools/"
 
 #=================================================
 # APP INITIAL CONFIGURATION
