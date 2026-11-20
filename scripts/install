@@ -34,9 +34,14 @@ ynh_script_progression "Setting up source files..."
 ynh_setup_source --dest_dir="$install_dir" --source_id="main"
 
 ynh_setup_source --dest_dir="$install_dir/search" --source_id="meili"
-ynh_setup_source --dest_dir="$install_dir/tools" --source_id="pmtiles"
-
 chmod +x "$install_dir/search/meilisearch"
+
+ynh_setup_source --dest_dir="$install_dir/tools" --source_id="pmtiles"
+pushd "$install_dir/tools"
+	tar --extract pmtiles.tar.gz
+popd
+
+chown "$app":"$app" "$install_dir"
 chmod +x "$install_dir/tools/pmtiles"
 
 #=================================================
