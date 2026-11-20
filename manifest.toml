@@ -7,7 +7,7 @@ name = "Wanderer"
 description.en = "Self-hosted trail database. Save your adventures! "
 description.fr = "Base de données de trails auto-hébergée. Sauvegardez vos aventures !"
 
-version = "0.21.2~ynh5"
+version = "0.21.2~ynh3"
 
 maintainers = ["Thovi98"]
 
@@ -125,12 +125,6 @@ ram.runtime = "50M"
     [resources.permissions]
     main.url = "/"
     main.auth_header = false
-
-    pocketbase.url = "/admin"
-    pocketbase.allowed = "admins"
-    pocketbase.show_tile = false
-    pocketbase.protected = true
-    pocketbase.auth_header = false
 
     api.url = "/api/v1"
     api.allowed = "visitors"
