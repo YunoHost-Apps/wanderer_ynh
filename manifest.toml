@@ -120,9 +120,7 @@ ram.runtime = "50M"
     arm64.url = "https://github.com/protomaps/go-pmtiles/releases/download/v1.31.2/go-pmtiles_1.31.2_Linux_arm64.tar.gz"
     arm64.sha256 = "f8bd47e7ea866863489cad588fbaf2f31f42e5821f7a03f009b3769f05801cb1"
 
-    in_subdir = true
-    extract   = true
-    format = "tar.gz"
+    in_subdir = false
 
     autoupdate.strategy = "latest_github_release"
     autoupdate.upstream = "https://github.com/protomaps/go-pmtiles"
