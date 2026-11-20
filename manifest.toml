@@ -120,9 +120,9 @@ ram.runtime = "50M"
     arm64.url = "https://github.com/protomaps/go-pmtiles/releases/download/v1.31.2/go-pmtiles_1.31.2_Linux_arm64.tar.gz"
     arm64.sha256 = "f8bd47e7ea866863489cad588fbaf2f31f42e5821f7a03f009b3769f05801cb1"
 
-    # There seems to be an issue with the helper where it doesn't extract the assets well, so we do it manually
-    extract = false
-    rename = "pmtiles.tar.gz"
+    in_subdir = true
+    extract   = true
+    format = "tar.gz"
 
     autoupdate.strategy = "latest_github_release"
     autoupdate.upstream = "https://github.com/protomaps/go-pmtiles"

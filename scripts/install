@@ -37,11 +37,6 @@ ynh_setup_source --dest_dir="$install_dir/search" --source_id="meili"
 chmod +x "$install_dir/search/meilisearch"
 
 ynh_setup_source --dest_dir="$install_dir/tools" --source_id="pmtiles"
-pushd "$install_dir/tools"
-	tar --strip-components=1 -xvf pmtiles.tar.gz
-popd
-
-chown "$app":"$app" "$install_dir"
 chmod +x "$install_dir/tools/pmtiles"
 
 #=================================================
