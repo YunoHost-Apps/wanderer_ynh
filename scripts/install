@@ -34,10 +34,10 @@ ynh_script_progression "Setting up source files..."
 ynh_setup_source --dest_dir="$install_dir" --source_id="main"
 
 ynh_setup_source --dest_dir="$install_dir/search" --source_id="meili"
-ynh_setup_source --dest_dir="$install_dir" --source_id="pmtiles"
+ynh_setup_source --dest_dir="$install_dir/tools" --source_id="pmtiles"
 
 chmod +x "$install_dir/search/meilisearch"
-chmod +x "$install_dir/tools/"
+chmod +x "$install_dir/tools/pmtiles"
 
 #=================================================
 # APP INITIAL CONFIGURATION
