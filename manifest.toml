@@ -7,7 +7,7 @@ name = "Wanderer"
 description.en = "Self-hosted trail database. Save your adventures! "
 description.fr = "Base de données de trails auto-hébergée. Sauvegardez vos aventures !"
 
-version = "0.21.2~ynh2"
+version = "0.21.2~ynh3"
 
 maintainers = ["Thovi98"]
 
@@ -16,7 +16,7 @@ license = "AGPL-3.0"
 website = "https://wanderer.to/"
 demo = "https://demo.wanderer.to/"
 admindoc = "https://wanderer.to/getting-started/installation/"
-userdoc = "https://wanderer.to/"
+userdoc = "https://wanderer.to/welcome"
 code = "https://github.com/open-wanderer/wanderer"
 fund = "https://buymeacoffee.com/wanderertrails"
 
@@ -67,8 +67,8 @@ ram.runtime = "50M"
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://github.com/open-wanderer/wanderer/archive/aa5d995dfde00b4557e9cb6ad5141382a04b2ee3.tar.gz"
-    sha256 = "9306f3d230ca5fe39db25c53d2bf8dabf4f4bb9bd574630ddbbc35ca82bf02bf"
+    url = "https://github.com/open-wanderer/wanderer/archive/1a997b5b1a1236138203a2c15f6592ce0cafcde9.tar.gz"
+    sha256 = "25684e7ad0770ecd1384489a60e6775a39ca84f0cd9f1c24a048ba718415f064"
     
     autoupdate.strategy = "latest_github_release"
 
@@ -101,10 +101,10 @@ ram.runtime = "50M"
     autoupdate.asset = ".*strava.tar.gz"
 
     [resources.sources.meili]
-    amd64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.56.0/meilisearch-linux-amd64"
-    amd64.sha256 = "5a32e1d7a6a69e0ee5634a7456c421f59273d73f078b6f0d8f01384eafe79729"
-    arm64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.56.0/meilisearch-linux-aarch64"
-    arm64.sha256 = "fcb2699f0bea994cdaf02064add2a4b1656a9aae3a3ee6ea7fd0d61575f19174"
+    amd64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.57.0/meilisearch-linux-amd64"
+    amd64.sha256 = "cc5c8825d6effd5295c534fd2fb92f14410eb9a14a88a012805cb239f2dc7969"
+    arm64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.57.0/meilisearch-linux-aarch64"
+    arm64.sha256 = "0e670a95eda37bf53afb04d495d8647a1a68708b1688f31ac89cbf5851152779"
     rename = "meilisearch"
     in_subdir = false
     extract = false
@@ -113,6 +113,19 @@ ram.runtime = "50M"
     autoupdate.upstream = "https://github.com/meilisearch/meilisearch"
     autoupdate.asset.amd64 = "^meilisearch-linux-amd64$"
     autoupdate.asset.arm64 = "^meilisearch-linux-aarch64$"
+
+    [resources.sources.pmtiles]
+    amd64.url = "https://github.com/protomaps/go-pmtiles/releases/download/v1.31.2/go-pmtiles_1.31.2_Linux_x86_64.tar.gz"
+    amd64.sha256 = "3ed7dbf4ec2e6dfe5e25b6f70d1ffc932729f93c86db353bf514dd71010a312f"
+    arm64.url = "https://github.com/protomaps/go-pmtiles/releases/download/v1.31.2/go-pmtiles_1.31.2_Linux_arm64.tar.gz"
+    arm64.sha256 = "f8bd47e7ea866863489cad588fbaf2f31f42e5821f7a03f009b3769f05801cb1"
+
+    in_subdir = false
+
+    autoupdate.strategy = "latest_github_release"
+    autoupdate.upstream = "https://github.com/protomaps/go-pmtiles"
+    autoupdate.asset.amd64 = ".*Linux-x86_64"
+    autoupdate.asset.arm64 = ".*Linux-arm64"
 
     [resources.system_user]
     allow_email = true
@@ -125,12 +138,6 @@ ram.runtime = "50M"
     [resources.permissions]
     main.url = "/"
     main.auth_header = false
-
-    pocketbase.url = "/admin"
-    pocketbase.allowed = "admins"
-    pocketbase.show_tile = false
-    pocketbase.protected = true
-    pocketbase.auth_header = false
 
     api.url = "/api/v1"
     api.allowed = "visitors"
